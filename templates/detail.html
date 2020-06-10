@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="{% static 'css_display/bt3.css' %}" />
+		<link rel="stylesheet" href="{% static 'css_display/app.css' %}" />
+		<meta content="user-scalable=no,width=device-width, initial-scale=1" name="viewport">
+		<link rel="stylesheet" href="{% static 'css_display/page-fast-news-60c1b0fb04288316f8b14bbbcc409bff.css' %}" />
+		<link rel="stylesheet" href="{% static 'css_display/application-febb10a4ab803df13138ef8cf968c276.css' %}" />
+		<link rel="stylesheet" href="{% static 'css_display/style.css' %}" />
+		<script type="text/javascript" src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+		<link rel="stylesheet" href="{% static 'css_display/detail.css' %}" />
+		<title></title>
+	</head>
+	<body style="background-color: #fff;" class=" pace-done">
+		<div class="container paperCut" style="margin-top: 35px;">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="box" style="margin-top: 20px;">
+						<div class="content">
+							<dl class="clearfix" >
+							   <dt class="clearfix pull-left">
+									<!-- <p class="paper-image">
+										<a class="J_view paper-title" data-url="" data-id="34" href="" target="_blank">
+										<img  src="{% static 'img/u300.png' %}"  style="width: 30px;" />
+										</span>工作经历
+										</a>
+									</p> -->
+									<p class="lvp">
+										王雷与徐金林、江彪提供劳务者受害责任纠纷一审民事判决书责任纠纷一审民事判决书责任纠纷一审民事判决书
+									</p>
+								</dt>
+							</dl>
+						</div>
+					</div>
+
+					<div class="box">
+						<div style="padding: 10px;margin-top: 10px;">
+						  	<span>文书类别：</span><span class="jns">{{data1}}</span>
+						</div>
+						<div style="padding: 10px;margin-top: -10px;">
+						  	<span>案由：</span><span class="jns">{{data2}}</span>
+						</div>
+						<div style="padding: 10px;margin-top: -10px;">
+						  	<span>承办部门：</span><span class="jns">{{data3}}</span>
+						</div>
+						<div style="padding: 10px;margin-top: -10px;">
+						  	<span>级别：</span><span class="jns">{{data4}}</span>
+						</div>
+					</div>
+					<!--作品-->
+					<!-- <div class="box" style="margin-top: 20px;">
+						<div class="content">
+							<dl class="clearfix" >
+								   <dt class="clearfix pull-left">
+										<p style="width:100%;padding-left: 10px;color: #0099ff;font-weight: bold;font-size: 18px;">fix++
+										<span style="float: right;color: #000;font-weight: normal;margin-right: 20px;color: #7886ab;font-size: 10px;">队长</span>
+										</p>
+										<p style="padding-left: 10px;font-weight: normal;">
+													早两年在QQ音乐团队写代码，目前在阿里巴巴做一个萌芽中的项目。主要的时间在写 iOS，也写过大半年时间的 Android 和 Cocos。除了 Objective-C 用的还可以以外，个人比较拿得出手的是 Java 和 S..
+										</p>
+										
+										<p style="width:100%;padding-left: 10px;color: #0099ff;font-weight: bold;font-size: 18px;">fix++
+										<span style="float: right;color: #000;font-weight: normal;margin-right: 20px;color: #7886ab;font-size: 10px;">独立开源项目</span>
+										</p>
+										<p style="padding-left: 10px;font-weight: normal;">
+													早两年在QQ音乐团队写代码，目前在阿里巴巴做一个萌芽中的项目。主要的时间在写 iOS  
+										</p>
+										
+									
+								</dt>
+							</dl>
+						</div>
+					</div> -->
+					<!--履历简介-->
+					<div class="box" style="margin-top: 20px;">
+						<div class="content">
+							<dl class="clearfix" >
+								   <dt class="clearfix pull-left">
+										<p class="paper-image">
+											<a class="J_view paper-title" data-url="" data-id="34" href="" target="_blank">
+											<img  src="{% static 'img/u300.png' %}"  style="width: 30px;" />
+											</span>文书内容
+											</a>
+										</p>
+										
+									     <p style="padding-left: 10px;font-weight: normal;line-height: 25px;">{{data5}}</p>
+									
+										</dt>
+									</dl>
+									</div>
+					</div>
+					<!--工作经历-->
+					
+					
+				</div>
+			</div>
+		</div>
+
+	
+</body>
+</html>

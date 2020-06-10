@@ -1,0 +1,1158 @@
+@media (max-width: 1555px) {
+  /* line 21, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  body > .christmas-wrapper {
+    display: none;
+  }
+}
+/* line 28, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+header.common-header .zhongchou-ft-container {
+  background: #454545;
+  display: block;
+  height: 55px;
+  padding: 9px 15px 9px 10px;
+  position: fixed;
+  box-sizing: border-box;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  z-index: 1000;
+  -webkit-transition: all 0.8s;
+          transition: all 0.8s;
+  display: none;
+}
+@media (max-width: 820px) {
+  /* line 41, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .zhongchou-ft-container {
+    display: none !important;
+  }
+}
+/* line 44, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+header.common-header .zhongchou-ft-container.hide {
+  -webkit-transform: translate(0, 100%);
+      -ms-transform: translate(0, 100%);
+          transform: translate(0, 100%);
+}
+/* line 48, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+header.common-header .zhongchou-ft-container .container {
+  width: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+/* line 52, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+header.common-header .zhongchou-ft-container .container > * {
+  vertical-align: middle;
+  display: inline-block;
+}
+/* line 59, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+header.common-header .zhongchou-ft-container .zhongchou-logo {
+  height: 22px;
+  margin-right: 15px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+/* line 67, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+header.common-header .zhongchou-ft-container .headericon-close {
+  color: #aaa;
+  float: right;
+  margin-left: 8px;
+  position: relative;
+  top: 10px;
+}
+/* line 74, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+header.common-header .zhongchou-ft-container .text {
+  font-size: 14px;
+  color: #fff;
+  line-height: 30px;
+  position: relative;
+  top: 3px;
+}
+/* line 81, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+header.common-header .zhongchou-ft-container .button {
+  float: right;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: #ff9335;
+  color: #fff;
+  font-size: 14px;
+  margin-top: 4px;
+}
+/* line 92, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+header.common-header .app-container,
+header.common-header .zhongchou-hd-container {
+  display: none;
+}
+@media (max-width: 820px) {
+  /* line 96, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .app-container {
+    display: block;
+    height: 55px;
+    padding: 9px 15px;
+    position: relative;
+    background: #f2f2f2;
+  }
+  /* line 102, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .app-container > * {
+    vertical-align: middle;
+    display: inline-block;
+  }
+  /* line 107, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .app-container .headericon-close {
+    color: #aaa;
+  }
+  /* line 110, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .app-container .app-logo {
+    width: 38px;
+    height: 38px;
+    background: url('//krplus-cdn.b0.upaiyun.com/common-module/common-header/images/app_logo.png') no-repeat;
+    background-size: contain;
+    margin-left: 20px;
+  }
+  /* line 117, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .app-container .text {
+    margin-left: 15px;
+  }
+  /* line 120, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .app-container .button {
+    float: right;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: #178fe6;
+    color: #fff;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  /* line 132, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .zhongchou-hd-container {
+    background: #454545;
+    display: block;
+    height: 55px;
+    padding: 9px 15px 9px 10px;
+    position: relative;
+  }
+  /* line 138, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .zhongchou-hd-container > * {
+    vertical-align: middle;
+    display: inline-block;
+  }
+  /* line 143, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .zhongchou-hd-container .zhongchou-logo {
+    height: 17px;
+    display: block;
+    margin-bottom: 1px;
+    margin-left: -2px;
+  }
+  /* line 150, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .zhongchou-hd-container .headericon-close {
+    color: #aaa;
+    float: left;
+    margin-right: 8px;
+    position: relative;
+    top: 10px;
+  }
+  /* line 157, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .zhongchou-hd-container .text {
+    font-size: 12px;
+    color: #fff;
+    display: block;
+  }
+  /* line 162, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+  header.common-header .zhongchou-hd-container .button {
+    float: right;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: #ff9335;
+    color: #fff;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+}
+/* line 174, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/less/app.less */
+body.holding .app-container {
+  display: none !important;
+}
+/* line 23, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header {
+  /* HTML5 display-role reset for older browsers */
+  font-family: "Lantinghei SC", "Open Sans", Arial, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "STHeiti", "WenQuanYi Micro Hei", SimSun, sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  height: 62px;
+  z-index: 999;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-sizing: content-box;
+}
+/* line 24, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header html,
+header.common-header body,
+header.common-header div,
+header.common-header span,
+header.common-header applet,
+header.common-header object,
+header.common-header iframe,
+header.common-header h1,
+header.common-header h2,
+header.common-header h3,
+header.common-header h4,
+header.common-header h5,
+header.common-header h6,
+header.common-header p,
+header.common-header blockquote,
+header.common-header pre,
+header.common-header a,
+header.common-header abbr,
+header.common-header acronym,
+header.common-header address,
+header.common-header big,
+header.common-header cite,
+header.common-header code,
+header.common-header del,
+header.common-header dfn,
+header.common-header em,
+header.common-header img,
+header.common-header ins,
+header.common-header kbd,
+header.common-header q,
+header.common-header s,
+header.common-header samp,
+header.common-header small,
+header.common-header strike,
+header.common-header strong,
+header.common-header sub,
+header.common-header sup,
+header.common-header tt,
+header.common-header var,
+header.common-header b,
+header.common-header u,
+header.common-header i,
+header.common-header center,
+header.common-header dl,
+header.common-header dt,
+header.common-header dd,
+header.common-header ol,
+header.common-header ul,
+header.common-header li,
+header.common-header fieldset,
+header.common-header form,
+header.common-header label,
+header.common-header legend,
+header.common-header table,
+header.common-header caption,
+header.common-header tbody,
+header.common-header tfoot,
+header.common-header thead,
+header.common-header tr,
+header.common-header th,
+header.common-header td,
+header.common-header article,
+header.common-header aside,
+header.common-header canvas,
+header.common-header details,
+header.common-header embed,
+header.common-header figure,
+header.common-header figcaption,
+header.common-header footer,
+header.common-header header,
+header.common-header hgroup,
+header.common-header main,
+header.common-header menu,
+header.common-header nav,
+header.common-header output,
+header.common-header ruby,
+header.common-header section,
+header.common-header summary,
+header.common-header time,
+header.common-header mark,
+header.common-header audio,
+header.common-header video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+/* line 43, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header article,
+header.common-header aside,
+header.common-header details,
+header.common-header figcaption,
+header.common-header figure,
+header.common-header footer,
+header.common-header header,
+header.common-header hgroup,
+header.common-header main,
+header.common-header menu,
+header.common-header nav,
+header.common-header section {
+  display: block;
+}
+/* line 47, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header body {
+  line-height: 1;
+}
+/* line 50, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header ol,
+header.common-header ul {
+  list-style: none;
+}
+/* line 53, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header blockquote,
+header.common-header q {
+  quotes: none;
+}
+/* line 56, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header blockquote:before,
+header.common-header blockquote:after,
+header.common-header q:before,
+header.common-header q:after {
+  content: '';
+  content: none;
+}
+/* line 62, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header a:hover,
+header.common-header a:active {
+  outline: none;
+}
+/* line 66, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* line 71, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header input,
+header.common-header button,
+header.common-header textarea {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+/* line 76, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header input:focus,
+header.common-header textarea:focus {
+  outline: none;
+}
+/* line 80, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header [placeholder]::-webkit-input-placeholder {
+  font-size: 13px;
+  color: #ccc;
+}
+/* line 85, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header [placeholder]::-moz-input-placeholder {
+  font-size: 13px;
+  color: #ccc;
+}
+/* line 90, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header [placeholder]:focus::-webkit-input-placeholder {
+  -webkit-transition: opacity 0.5s ease;
+          transition: opacity 0.5s ease;
+  opacity: 0.5;
+}
+/* line 95, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header [placeholder]:focus::-moz-input-placeholder {
+  transition: opacity 0.5s ease;
+  opacity: 0.5;
+}
+/* line 100, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header input::-ms-clear {
+  display: none;
+}
+/* line 104, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header *,
+header.common-header *:before,
+header.common-header *:after {
+  box-sizing: border-box;
+}
+/* line 109, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header * {
+  font-size: 15px;
+  -webkit-transition: none;
+          transition: none;
+}
+@font-face {
+  font-family: 'icomoon-header';
+  src: url('//krplus-cdn.b0.upaiyun.com/common-module/common-header/iconmoon/fonts/icomoon.eot');
+  src: url('//krplus-cdn.b0.upaiyun.com/common-module/common-header/iconmoon/fonts/icomoon.eot') format('embedded-opentype'), url('//krplus-cdn.b0.upaiyun.com/common-module/common-header/iconmoon/fonts/icomoon.woff') format('woff'), url('//krplus-cdn.b0.upaiyun.com/common-module/common-header/iconmoon/fonts/icomoon.ttf') format('truetype'), url('//krplus-cdn.b0.upaiyun.com/common-module/common-header/iconmoon/fonts/icomoon.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 125, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header [class^="headericon-"],
+header.common-header [class*=" headericon-"] {
+  font-family: 'icomoon-header';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* line 139, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header .headericon-header-msg:before {
+  content: "\e600";
+}
+/* line 143, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header .headericon-header-app:before {
+  content: "\e601";
+}
+/* line 147, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header .headericon-header-user:before {
+	background-image: url(../img/u38.png);
+}
+/* line 151, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header .headericon-header-search:before {
+	background-image: url(../img/u38.png);
+}
+/* line 155, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header .headericon-apple:before {
+  content: "\eabf";
+}
+/* line 159, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header .headericon-android:before {
+  content: "\eac1";
+}
+/* line 163, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header .headericon-header-menu:before {
+  content: "\e606";
+}
+/* line 166, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header .headericon-arrow-drop-down:before {
+  content: "\e604";
+}
+/* line 169, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header .headericon-close:before {
+  content: "\e605";
+}
+/* line 187, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header.scrolling {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  border-bottom: 0;
+}
+/* line 198, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header a,
+header.common-header a:focus,
+header.common-header a:visited {
+  color: #333333;
+  text-decoration: none;
+}
+/* line 205, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header a:hover {
+  color: #178fe6;
+}
+/* line 209, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header .container {
+  max-width: 1170px;
+  margin: 0 auto;
+  position: relative;
+}
+@media (min-width: 820px) and (max-width: 1200px) {
+  /* line 213, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .container {
+    padding: 0 10px;
+  }
+}
+/* line 219, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header .logo {
+  display: block;
+  width: 200px;
+  height: 50px;
+  position: absolute;
+  top: 15px;
+  left: 0;
+}
+/* line 226, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+header.common-header .logo img {
+  width: 100%;
+}
+@media (min-width: 820px) and (max-width: 1200px) {
+  /* line 229, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .logo {
+    left: 10px;
+  }
+}
+@media (max-width: 820px) {
+  /* line 234, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .logo {
+    left: 10px;
+  }
+}
+@media (min-width: 820px) {
+  /* line 245, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  body {
+    padding-top: 62px;
+  }
+  /* line 249, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  .triggers {
+    display: none;
+  }
+  /* line 254, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header > .triggers {
+    display: none;
+  }
+  /* line 257, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav {
+    padding-left: 102px;
+  }
+  /* line 259, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav a.headericon-header-menu {
+    display: none;
+  }
+  /* line 263, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li {
+    float: left;
+    position: relative;
+  }
+  /* line 266, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li .headericon-arrow-drop-down {
+    font-size: 18px;
+    position: relative;
+    top: 2px;
+    left: -5px;
+    color: #999;
+  }
+  /* line 273, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li a {
+    display: block;
+    padding: 0 15px;
+    margin: 0 5px;
+    line-height: 62px;
+    height: 62px;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  /* line 285, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li a.pointer-box {
+    position: relative;
+  }
+  /* line 287, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li a.pointer-box .red-pointer {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    width: 6px;
+    height: 6px;
+    background: #ff0000;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+  }
+  /* line 299, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li a.pointer-box .red-pointer.current {
+    display: none;
+  }
+  /* line 307, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li.active a {
+    border-bottom: solid 2px #178fe6;
+    color: #000000;
+    font-weight: 600;
+  }
+  /* line 311, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li.active a:hover {
+    cursor: default;
+  }
+  /* line 315, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li .service-wrap {
+    right: -22px;
+    -webkit-transform-origin: 40% 0;
+        -ms-transform-origin: 40% 0;
+            transform-origin: 40% 0;
+    padding: 10px 14px;
+    min-width: 150px;
+  }
+  /* line 320, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li .service-wrap:before {
+    right: 86px;
+  }
+  /* line 351, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .pop-up {
+    -webkit-transition: none;
+            transition: none;
+    -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+            transform: scale(0);
+    -webkit-transform-origin: 90% 0;
+        -ms-transform-origin: 90% 0;
+            transform-origin: 90% 0;
+    visibility: hidden;
+    position: absolute;
+    min-width: 180px;
+    right: 14px;
+    top: 62px;
+    background: #fff;
+    border: solid 1px #ddd;
+    padding: 20px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  /* line 367, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .pop-up:before {
+    width: 10px;
+    height: 10px;
+    -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    background: #fff;
+    border: solid 1px #ddd;
+    border-width: 1px 1px 0 0;
+    position: absolute;
+    top: -6px;
+    right: 15px;
+    content: " ";
+  }
+  /* line 390, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header li:hover > a,
+  header.common-header li.stay > a {
+    color: #178fe6;
+  }
+  /* line 392, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header li:hover > a i,
+  header.common-header li.stay > a i {
+    color: #178fe6 !important;
+  }
+  /* line 397, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header li:hover .pop-up,
+  header.common-header li.stay .pop-up {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+            transform: scale(1);
+    z-index: 100;
+    -webkit-transition: all 0.3s cubic-bezier(0.31, 0.57, 0.68, 1.36);
+            transition: all 0.3s cubic-bezier(0.31, 0.57, 0.68, 1.36);
+  }
+  /* line 406, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .menu a {
+    display: block;
+    height: 36px;
+    line-height: 36px;
+    border-top: solid 1px #eee;
+    padding: 0 6px;
+    font-size: 13px;
+  }
+  /* line 413, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .menu a span {
+    background: #ec3e3e;
+    float: right;
+    color: #fff;
+    padding: 0 4px;
+    border-radius: 10px;
+    line-height: 20px;
+    height: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    position: relative;
+    top: 8px;
+  }
+  /* line 426, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .menu a:first-of-type {
+    border-top: 0;
+  }
+  /* line 431, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav {
+    float: right;
+    height: 62px;
+    margin-right: -20px;
+  }
+  /* line 435, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li {
+    float: left;
+    position: relative;
+    height: 62px;
+  }
+  /* line 439, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li > a {
+    padding: 17px 15px;
+    display: block;
+  }
+  /* line 442, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li > a i {
+    font-size: 20px;
+    position: relative;
+    top: 3px;
+    color: #666;
+  }
+  /* line 448, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li > a.login-link {
+    color: #178fe6;
+  }
+  /* line 450, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li > a.login-link i {
+    color: #178fe6;
+  }
+  /* line 459, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .headericon-header-msg {
+    position: relative;
+  }
+  /* line 461, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .headericon-header-msg.point:after {
+    content: " ";
+    width: 6px;
+    height: 6px;
+    border-radius: 6px;
+    background: #ec3e3e;
+    position: absolute;
+    top: 0px;
+    right: -2px;
+    display: block;
+  }
+  /* line 473, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li .search-wrap {
+    right: -200px;
+    -webkit-transform-origin: 20% 0;
+        -ms-transform-origin: 20% 0;
+            transform-origin: 20% 0;
+  }
+  /* line 476, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li .search-wrap:before {
+    right: 225px;
+  }
+  /* line 481, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li .mobile-wrap:before {
+    right: 18px;
+  }
+  /* line 485, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li .msg-wrap {
+    padding: 10px 20px;
+  }
+  /* line 487, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li .msg-wrap:before {
+    right: 10px;
+  }
+  /* line 492, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .searchbar {
+    height: 32px;
+    overflow: hidden;
+    white-space: nowrap;
+    word-spacing: 0;
+  }
+  /* line 498, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .searchbar button {
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    background: #40afff;
+    color: #fff;
+    vertical-align: middle;
+    border-radius: 0 2px 2px 0;
+    font-size: 18px;
+  }
+  /* line 507, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .searchbar button:hover {
+    background: #46c1ff;
+  }
+  /* line 511, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .searchbar input {
+    width: 210px;
+    height: 30px;
+    float: left;
+    border: solid 1px #a1d8ff;
+    border-right: 0;
+    border-radius: 2px 0 0 2px;
+    background: #fff;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 2px 10px;
+    line-height: 25px;
+    vertical-align: middle;
+  }
+  /* line 526, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .mobile-wrap {
+    width: 260px;
+  }
+  /* line 528, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .mobile-wrap .qr {
+    height: 90px;
+    float: left;
+    margin-right: 15px;
+  }
+  /* line 533, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .mobile-wrap .btns {
+    overflow: hidden;
+  }
+  /* line 535, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .mobile-wrap .btns span {
+    display: block;
+    font-size: 13px;
+  }
+  /* line 539, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .mobile-wrap .btns a {
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    background: #178fe6;
+    color: #fff;
+    border-radius: 2px;
+    padding: 0px 10px;
+    margin-top: 11px;
+    font-size: 12px;
+  }
+  /* line 549, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .mobile-wrap .btns a i {
+    font-size: 16px;
+    position: relative;
+    top: 3px;
+    margin-right: 4px;
+  }
+  /* line 555, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .mobile-wrap .btns a:hover {
+    background: #199dfd;
+  }
+  /* line 561, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .head-avatar {
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding: 0 20px;
+    top: 15px;
+  }
+  /* line 568, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav .head-avatar img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+  }
+  /* line 577, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li .menu-wrap {
+    padding: 15px 20px 5px 20px;
+  }
+  /* line 579, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li .menu-wrap .brief {
+    padding-bottom: 10px;
+    display: block;
+    border-bottom: solid 1px #eee;
+  }
+  /* line 583, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li .menu-wrap .brief img {
+    float: left;
+    width: 35px;
+    height: 35px;
+    border-radius: 30px;
+    margin-right: 10px;
+  }
+  /* line 590, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav > li .menu-wrap .brief span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+    height: 40px;
+    line-height: 40px;
+  }
+}
+@media (min-width: 820px) and (min-width: 820px) {
+  /* line 326, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li[name="insight"] {
+    position: relative;
+  }
+  /* line 328, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li[name="insight"]:after {
+    content: "";
+    position: absolute;
+    top: 13px;
+    left: 75%;
+    background: url('//krplus-cdn.b0.upaiyun.com/common-module/common-header/images/new.png') no-repeat center center;
+    background-size: contain;
+    width: 24px;
+    height: 10px;
+  }
+}
+@media (min-width: 820px) and (min-width: 820px) and (max-width: 1200px) {
+  /* line 343, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav ul li a {
+    padding: 0 10px;
+    margin: 0 3px;
+  }
+}
+/* line 605, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+.mobile-show {
+  display: none;
+}
+@media (max-width: 820px) {
+  /* line 607, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  .mobile-show {
+    display: block;
+  }
+}
+@media (max-width: 820px) {
+  /* line 612, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  .mobile-hide {
+    display: none !important;
+  }
+}
+@media (max-width: 820px) {
+  /* line 620, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  body {
+    padding-top: 0;
+    -webkit-transition: -webkit-transform 0.3s ease;
+            transition: transform 0.3s ease;
+  }
+  /* line 623, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  body:after {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: -130px;
+    z-index: 1000;
+    content: " ";
+    display: block;
+    background: #000;
+    opacity: 0;
+    -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+    visibility: hidden;
+  }
+  /* line 639, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  html.holding,
+  body.holding {
+    height: 100%;
+    overflow: hidden;
+  }
+  /* line 644, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  html.holding footer,
+  body.holding footer {
+    display: none;
+  }
+  /* line 648, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  html.holding header.common-header,
+  body.holding header.common-header {
+    z-index: 1001;
+  }
+  /* line 654, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  body.holding-right {
+    margin-right: -130px;
+    padding-right: 130px;
+  }
+  /* line 659, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  body.slide-left {
+    -webkit-transform: translate(-130px, 0);
+        -ms-transform: translate(-130px, 0);
+            transform: translate(-130px, 0);
+  }
+  /* line 661, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  body.slide-left:after {
+    visibility: visible;
+    opacity: 0.3;
+    z-index: 1002;
+  }
+  /* line 669, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header {
+    box-shadow: none !important;
+    border-bottom: solid 1px #cddce7 !important;
+    position: relative;
+    height: auto;
+    z-index: 999;
+  }
+  /* line 675, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .triggers {
+    display: block;
+    word-spacing: 0;
+    height: 62px;
+    text-align: right;
+  }
+  /* line 680, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .triggers > a {
+    display: inline-block;
+    border-left: solid 1px #cddce7;
+    width: 62px;
+    height: 62px;
+    line-height: 62px;
+    text-align: center;
+    font-size: 28px;
+    color: #9ab8d0;
+  }
+  /* line 689, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .triggers > a.headericon-header-search {
+    text-indent: 4px;
+  }
+  /* line 695, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .trigger-hide {
+    display: none;
+  }
+  /* line 699, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header nav {
+    display: none;
+  }
+  /* line 704, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header .sub-nav li {
+    display: none;
+  }
+  /* line 709, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-search {
+    -webkit-transition: -webkit-transform 0.3s ease;
+            transition: transform 0.3s ease;
+    -webkit-transform: translate(0, -63px);
+        -ms-transform: translate(0, -63px);
+            transform: translate(0, -63px);
+    height: 2000px;
+    background: #f2f2f2;
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  /* line 719, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-search .sub-nav {
+    position: relative;
+  }
+  /* line 721, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-search .sub-nav li.search-item {
+    display: block;
+    height: 62px;
+    position: relative;
+  }
+  /* line 725, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-search .sub-nav li.search-item form {
+    border-bottom: solid 1px #cddce7;
+  }
+  /* line 728, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-search .sub-nav li.search-item > a {
+    display: none;
+  }
+  /* line 731, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-search .sub-nav li.search-item button {
+    display: inline-block;
+    border-left: solid 1px #cddce7;
+    width: 62px;
+    height: 62px;
+    line-height: 62px;
+    text-align: center;
+    font-size: 28px;
+    color: #9ab8d0;
+    background: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  /* line 744, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-search .sub-nav li.search-item button.search-icon {
+    right: 62px;
+    border-left: 0;
+  }
+  /* line 748, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-search .sub-nav li.search-item button.close-icon {
+    color: #aaa;
+  }
+  /* line 752, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-search .sub-nav li.search-item input {
+    border: 0;
+    width: 100%;
+    height: 62px;
+    padding-left: 20px;
+    padding-right: 124px;
+    border-top: solid 1px #cddce7;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+  }
+  /* line 762, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-search .sub-nav li.search-item [placeholder]::-webkit-input-placeholder {
+    font-size: 16px;
+    color: #ccc;
+  }
+  /* line 767, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-search .sub-nav li.search-item [placeholder]::-moz-input-placeholder {
+    font-size: 16px;
+    color: #ccc;
+  }
+  /* line 778, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-menu .sub-nav li.login-actions {
+    display: block;
+  }
+  /* line 780, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-menu .sub-nav li.login-actions a {
+    display: block;
+    width: 130px;
+    height: 62px;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    line-height: 62px;
+    color: #fff;
+    text-align: left;
+    padding-left: 14px;
+  }
+  /* line 791, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-menu .sub-nav li.login-actions a i {
+    font-size: 26px;
+    vertical-align: middle;
+  }
+  /* line 799, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-menu .sub-nav li.user-menu {
+    display: block;
+  }
+  /* line 801, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-menu .sub-nav li.user-menu > a {
+    display: none;
+  }
+  /* line 804, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-menu .sub-nav li.user-menu .menu {
+    display: none;
+  }
+  /* line 807, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-menu .sub-nav li.user-menu .brief {
+    display: block;
+    max-width: 130px -10px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 130px;
+    height: 62px;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    line-height: 62px;
+    color: #fff;
+    text-align: left;
+    padding-left: 14px;
+  }
+  /* line 822, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-menu .sub-nav li.user-menu .brief img {
+    width: 30px;
+    height: 30px;
+    border: solid 2px rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 3px;
+  }
+  /* line 834, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-menu nav {
+    display: block;
+    width: 130px;
+    height: 2000px;
+    background: #3c3c44;
+    padding-top: 62px;
+    position: absolute;
+    left: 100%;
+    top: 0;
+  }
+  /* line 848, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-menu nav li a {
+    height: 43.4px;
+    line-height: 43.4px;
+    display: block;
+    text-align: left;
+    border: solid 1px transparent;
+    border-width: 1px 0;
+    color: #fff;
+    padding-left: 20px;
+  }
+  /* line 857, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-menu nav li a.trigger-hide {
+    display: none;
+  }
+  /* line 862, /data/jenkins/workspace/f2e-prod-common-module/src/common-header/style.less */
+  header.common-header.show-menu nav li.active a {
+    background: #474750;
+    border-color: #555560;
+  }
+}
