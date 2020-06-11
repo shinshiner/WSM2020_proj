@@ -8,7 +8,7 @@ class Case():
         self.data4 = 1234
 
         self.k_money = '执行标的金额（元）'
-        self.v_money = '2784621.17'
+        self.v_money = float(idx)
         self.k_executee = '被执行人'
         self.v_executee = '上海琦沁金属材料有限公司（法定代表人：周建斌）'
         self.k_executor = '申请执行人'
@@ -41,7 +41,8 @@ class Instrument():
         self.k_level = '级别'
         self.v_level = '一审'
         self.k_date = '结案日期'
-        self.v_date = '2019-05-27'
+        self.v_date = '2019-05-'+str(idx)
+        self.v_date_sort = float(''.join(self.v_date.split('-')))
 
     def __str__(self):
         return str(self.data1) + self.data2 + self.data3

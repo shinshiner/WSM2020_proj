@@ -1,7 +1,8 @@
 from datetime import datetime
 from django.shortcuts import render
 from .models import Case, Instrument
-import markdown
+
+import random
 
 # Create your views here.
 
@@ -73,13 +74,21 @@ def search(request):
     end_time = datetime.now()
     last_seconds = (end_time - start_time).total_seconds()
     if s_type == 'case':
-        hit_list = [Case(i) for i in range(40)]
+        hit_list = [Case(random.random()*100) for i in range(40)]
+        # hit_list = [Case(i) for i in range(40)]
+        if sort_type == 'moneys':
+            hit_list = sorted(hit_list, key=lambda x: x.v_money)
+        elif sort_type == 'moneyl':
+            hit_list = sorted(hit_list, key=lambda x: x.v_money, reverse=True)
     else:
-        hit_list = [Instrument(2*i) for i in range(40)]
+        hit_list = [Instrument(random.randint(1, 31)) for i in range(40)]
+        if sort_type == 'dates':
+            hit_list = sorted(hit_list, key=lambda x: x.v_date_sort)
+        elif sort_type == 'datel':
+            hit_list = sorted(hit_list, key=lambda x: x.v_date_sort, reverse=True)
     total_nums = len(hit_list)
 
-    if sort_type == 'date':
-        hit_list.reverse()
+    
     hit_list = hit_list[(page-1)*10 : min(total_nums, page * 10)]
 
     if (page%10) > 0:

@@ -11,8 +11,8 @@
 </head>
 <body>
 <div id="container">
-	<div id="hd" class="ue-clear">
-    	<a href="/"><div class="logo"></div></a>
+    <div id="hd" class="ue-clear">
+        <a href="/"><div class="logo"></div></a>
         <div class="nav ue-clear">
             <div class="searchList">
                 {% if s_type == 'case' %}
@@ -32,31 +32,58 @@
         
     </div>
     <!-- <div class="nav">
-    	<ul class="searchList">
+        <ul class="searchList">
             <li class="searchItem current" data-type="article">文章</li>
             <li class="searchItem" data-type="question">问答</li>
             <li class="searchItem" data-type="job">职位</li>
         </ul>
     </div> -->
-	<div id="bd" class="ue-clear">
+    <div id="bd" class="ue-clear">
         <div id="main">
-        	<div class="sideBar", style="padding-top: 20px">
+            <div class="sideBar", style="padding-top: 20px">
                 <div class="subfield">排序方式</div>
 
-                {% if sort_type == 'relevance' %}
-                    <li class="subfieldContext current" sort-type="relevance">相关度</li>
-                {% else %}
-                    <li class="subfieldContext" sort-type="relevance">相关度</li>
-                {% endif %}
+                {% if s_type == 'case' %}
+                    {% if sort_type == 'relevance' %}
+                        <li class="subfieldContext current" sort-type="relevance" onclick="sort_by('relevance')">相关度</li>
+                    {% else %}
+                        <li class="subfieldContext" sort-type="relevance" onclick="sort_by('relevance')">相关度</li>
+                    {% endif %}
 
-                {% if sort_type == 'date' %}
-                    <li class="subfieldContext current" sort-type="date">日期</li> 
-                {% else %}
-                    <li class="subfieldContext" sort-type="date">日期</li>
+                    {% if sort_type == 'moneyl' %}
+                        <li class="subfieldContext current" sort-type="money" onclick="sort_by('moneyl')">金额（从大到小）</li> 
+                    {% else %}
+                        <li class="subfieldContext" sort-type="money" onclick="sort_by('moneyl')">金额（从大到小）</li>
+                    {% endif %}
+
+                    {% if sort_type == 'moneys' %}
+                        <li class="subfieldContext current" sort-type="money" onclick="sort_by('moneys')">金额（从小到大）</li> 
+                    {% else %}
+                        <li class="subfieldContext" sort-type="money" onclick="sort_by('moneys')">金额（从小到大）</li>
+                    {% endif %}
+
+                {% elif s_type == 'instrument' %}
+                    {% if sort_type == 'relevance' %}
+                        <li class="subfieldContext current" sort-type="relevance">相关度</li>
+                    {% else %}
+                        <li class="subfieldContext" sort-type="relevance">相关度</li>
+                    {% endif %}
+
+                    {% if sort_type == 'datel' %}
+                        <li class="subfieldContext current" sort-type="date" onclick="sort_by('datel')">结案日期（从近到远）</li> 
+                    {% else %}
+                        <li class="subfieldContext" sort-type="date" onclick="sort_by('datel')">结案日期（从近到远）</li>
+                    {% endif %}
+
+                    {% if sort_type == 'dates' %}
+                        <li class="subfieldContext current" sort-type="date" onclick="sort_by('dates')">结案日期（从远到近）</li> 
+                    {% else %}
+                        <li class="subfieldContext" sort-type="date" onclick="sort_by('dates')">结案日期（从远到近）</li>
+                    {% endif %}
                 {% endif %}
 
                 <div class="sideBarShowHide">
-                	<a href="javascript:;" class="icon"></a>
+                    <a href="javascript:;" class="icon"></a>
                 </div>
             </div>
             <div class="inputArea">
@@ -64,8 +91,8 @@
                 <input type="button" class="searchButton" onclick="add_search()"/>
             </div>
             <div class="resultArea">
-            	<p class="resultTotal">
-                	<span class="info">找到约&nbsp;<span class="totalResult">{{ total_nums }}</span>&nbsp;条结果(用时<span class="time">{{ last_seconds }}</span>秒)，共约<span class="totalPage">{{ page_nums }}</span>页</span>
+                <p class="resultTotal">
+                    <span class="info">找到约&nbsp;<span class="totalResult">{{ total_nums }}</span>&nbsp;条结果(用时<span class="time">{{ last_seconds }}</span>秒)，共约<span class="totalPage">{{ page_nums }}</span>页</span>
                     <span class="info">fuzzy info</span>
                 </p>
                 <div class="resultList"  style="float: left">
@@ -152,21 +179,21 @@
 <script type="text/javascript">
     var search_url = "{% url 'search' %}"
 
-	$('.searchList').on('click', '.searchItem', function(){
-		$('.searchList .searchItem').removeClass('current');
-		$(this).addClass('current');	
-	});
-	
-	// $.each($('.subfieldContext'), function(i, item){
-	// 	$(this).find('li:gt(2)').hide().end().find('li:last').show();		
-	// });
+    $('.searchList').on('click', '.searchItem', function(){
+        $('.searchList .searchItem').removeClass('current');
+        $(this).addClass('current');    
+    });
+    
+    // $.each($('.subfieldContext'), function(i, item){
+    //  $(this).find('li:gt(2)').hide().end().find('li:last').show();       
+    // });
 
     $('.sideBar').on('click', '.subfieldContext', function(){
         $('.sideBar .subfieldContext').removeClass('current');
         $(this).addClass('current');    
     });
 
-	function removeByValue(arr, val) {
+    function removeByValue(arr, val) {
       for(var i=0; i<arr.length; i++) {
         if(arr[i] == val) {
           arr.splice(i, 1);
@@ -174,55 +201,55 @@
         }
       }
     }
-	$('.subfieldContext .more').click(function(e){
-		var $more = $(this).parent('.subfieldContext').find('.more');
-		if($more.hasClass('show')){
-			
-			if($(this).hasClass('define')){
-				$(this).parent('.subfieldContext').find('.more').removeClass('show').find('.text').text('自定义');
-			}else{
-				$(this).parent('.subfieldContext').find('.more').removeClass('show').find('.text').text('更多');	
-			}
-			$(this).parent('.subfieldContext').find('li:gt(2)').hide().end().find('li:last').show();
-	    }else{
-			$(this).parent('.subfieldContext').find('.more').addClass('show').find('.text').text('收起');
-			$(this).parent('.subfieldContext').find('li:gt(2)').show();	
-		}
-		
-	});
-	
-	$('.sideBarShowHide a').click(function(e) {
-		if($('#main').hasClass('sideBarHide')){
-			$('#main').removeClass('sideBarHide');
-			$('#container').removeClass('sideBarHide');
-		}else{
-			$('#main').addClass('sideBarHide');	
-			$('#container').addClass('sideBarHide');
-		}
+    $('.subfieldContext .more').click(function(e){
+        var $more = $(this).parent('.subfieldContext').find('.more');
+        if($more.hasClass('show')){
+            
+            if($(this).hasClass('define')){
+                $(this).parent('.subfieldContext').find('.more').removeClass('show').find('.text').text('自定义');
+            }else{
+                $(this).parent('.subfieldContext').find('.more').removeClass('show').find('.text').text('更多');  
+            }
+            $(this).parent('.subfieldContext').find('li:gt(2)').hide().end().find('li:last').show();
+        }else{
+            $(this).parent('.subfieldContext').find('.more').addClass('show').find('.text').text('收起');
+            $(this).parent('.subfieldContext').find('li:gt(2)').show(); 
+        }
         
     });
-	var key_words = "{{key_words}}"
-	//分页
-	$(".pagination").pagination({{ total_nums }}, {
-		current_page :{{ page|add:'-1' }}, //当前页码
-		items_per_page :10,
-		display_msg :true,
-		callback :pageselectCallback
-	});
-	function pageselectCallback(page_id, jq) {
-		window.location.href=search_url+'?q='+key_words+'&p='+(page_id+1)
-	}
-	
-	setHeight();
-	$(window).resize(function(){
-		setHeight();	
-	});
-	
-	function setHeight(){
-		if($('#container').outerHeight() < $(window).height()){
-			$('#container').height($(window).height()-33);
-		}	
-	}
+    
+    $('.sideBarShowHide a').click(function(e) {
+        if($('#main').hasClass('sideBarHide')){
+            $('#main').removeClass('sideBarHide');
+            $('#container').removeClass('sideBarHide');
+        }else{
+            $('#main').addClass('sideBarHide'); 
+            $('#container').addClass('sideBarHide');
+        }
+        
+    });
+    var key_words = "{{key_words}}"
+    //分页
+    $(".pagination").pagination({{ total_nums }}, {
+        current_page :{{ page|add:'-1' }}, //当前页码
+        items_per_page :10,
+        display_msg :true,
+        callback :pageselectCallback
+    });
+    function pageselectCallback(page_id, jq) {
+        window.location.href=search_url+'?q='+key_words+'&p='+(page_id+1)+"&s_type="+$(".searchItem.current").attr('data-type')+"&sort="+$(".subfieldContext.current").attr('sort-type')
+    }
+    
+    setHeight();
+    $(window).resize(function(){
+        setHeight();    
+    });
+    
+    function setHeight(){
+        if($('#container').outerHeight() < $(window).height()){
+            $('#container').height($(window).height()-33);
+        }   
+    }
 </script>
 <script type="text/javascript">
     $('.searchList').on('click', '.searchItem', function(){
@@ -271,7 +298,7 @@
         window.location.href=search_url+'?q='+val+"&s_type="+$(".searchItem.current").attr('data-type')+"&sort="+$(".subfieldContext.current").attr('sort-type')
     }
 
-    function sort_by_date(){
+    function sort_by(type){
         var val = $(".searchInput").val();
         if (val.length>=2){
             //点击搜索按钮时，去重
@@ -282,7 +309,21 @@
             MapSearchArr();
         }
 
-        window.location.href=search_url+'?q='+val+"&s_type="+$(".searchItem.current").attr('data-type')+"&sort=date"
+        window.location.href=search_url+'?q='+val+"&s_type="+$(".searchItem.current").attr('data-type')+"&sort="+type
+    }
+
+    function sort_by_money(){
+        var val = $(".searchInput").val();
+        if (val.length>=2){
+            //点击搜索按钮时，去重
+            KillRepeat(val);
+            //去重后把数组存储到浏览器localStorage
+            localStorage.search = searchArr;
+            //然后再把搜索内容显示出来
+            MapSearchArr();
+        }
+
+        window.location.href=search_url+'?q='+val+"&s_type="+$(".searchItem.current").attr('data-type')+"&sort=money"
     }
 
     function display(id){

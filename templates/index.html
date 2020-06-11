@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>lcv-search 搜索引擎</title>
+<title>Chinese WestLaw</title>
 <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css" />
 </head>
@@ -34,32 +34,23 @@
                 </ul>
             </div>
 
-            <!-- <div class="historyArea">
+            <div class="historyArea">
             	<p class="history">
-                	<label>热门搜索：</label>
-                    {% for search_words in topn_search %}
-                        <a href="/search?q={{ search_words }}">{{ search_words }}</a>
-                    {% endfor %}
+                	<label>搜索案件：输入关键字，支持布尔查询（用and，or，not连接）</label>
                 </p>
                 <p class="history mysearch">
-                	<label>我的搜索：</label>
-                    <span class="all-search">
-                        <a href="javascript:;">专注界面设计网站</a>
-                        <a href="javascript:;">用户体验</a>
-                        <a href="javascript:;">互联网</a>
-                        <a href="javascript:;">资费套餐</a>
-                    </span>
+                	<label>搜索文书：输入查询语句</label>
 
                 </p>
-            </div> -->
+            </div>
         </div><!-- End of main -->
     </div><!--End of bd-->
 
-    <div class="foot">
+    <!-- <div class="foot">
     	<div class="wrap">
             <div class="copyright">Copyright &copy;uimaker.com 版权所有  E-mail:admin@uimaker.com</div>
         </div>
-    </div>
+    </div> -->
 </div>
 </body>
 <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
