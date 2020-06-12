@@ -1,0 +1,167 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2020
+
+% ready for submission
+% \usepackage{neurips_2020}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2020}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2020}
+
+% to avoid loading the natbib package, add option nonatbib:
+\usepackage[preprint]{neurips_2020}
+    %  \usepackage[nonatbib]{neurips_2020}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage{amsmath,amssymb} % define this before the line numbering.
+\usepackage{color}
+\usepackage{bm}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsthm}
+\usepackage{subfigure}
+\usepackage{algorithmic}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{stfloats}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\usepackage[lined,boxed,commentsnumbered,ruled]{algorithm2e}
+
+\title{Report on WSM 2020 Group Project: Chinese WestLaw System}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+  name\\
+  id\\
+  \And
+  name\\
+  id\\
+  \And
+  name\\
+  id\\
+  % examples of more authors
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \AND
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem Description}
+\label{sec:intro}
+
+In this work, we build a Chinese WestLaw system based on the provided court records of legal cases. We construct an inverted index on the given data and implement the following operations: 
+
+\begin{enumerate}
+    \item \textbf{Boolean search}: Given search keys and operations between keys, our system will return all the relevant documents;
+    \item \textbf{Tolerant (fuzzy) search}: Our system has well robustness against the wrongly typed information;
+    \item \textbf{Query}: Our system supports the search for legal instruments with a query sentence. 
+\end{enumerate}
+
+Besides the above functions, we develop a user-friendly web interface for system access, where users can sort the returned documents according to their needs (e.g. amount of fines, registration dates, etc.).
+
+In the following sections, we will illustrate the detailed implementation and effect of each part of our Chinese WestLaw system. The code of the whole system can refer to \url{https://github.com/shinshiner/wsm2020_proj}.
+
+\section{Indexing \& Boolean Search}
+\label{sec:boolean}
+
+\section{Tolerant Search}
+
+\section{Query}
+\label{sec:query}
+
+\section{Web Interface \& Sorting}
+
+Considering the ease of use of our Chinese WestLaw system, we develop a user-friendly web interface, where users can conduct search as if using a common web search engine. In this section, we will introduce the implementation of our web interface, including the sorting of returned results.
+
+We build the whole web interface based on Django \cite{}, which is a light-weight and flexible web framework. Since Django is mainly designed for building web applications with Python, we can conveniently embed our retrieval algorithms into the web server. In the following parts, we will introduce the two main components of the interface, namely front-end and back-end, respectively.
+
+\subsection{Front-end}
+
+We render the front-end of our web interface with \textit{html}, \textit{css} templates and \textit{javascript} scripts. As illustrated in Fig. \ref{fig:intro}, our web interface consists of three categories of web pages: index page, results page and detail page.
+
+\begin{figure}[htbp]
+	\centering
+	\subfigure[Index page]{
+		\includegraphics[width=0.3\linewidth]{figures/1.png}
+		\label{fig:intro-a}
+	}
+	\subfigure[Results page]{
+		\includegraphics[width=0.3\linewidth]{figures/3.png}
+		\label{fig:intro-c}
+	}
+	\subfigure[Detail page]{
+		\includegraphics[width=0.3\linewidth]{figures/4.png}
+		\label{fig:intro-d}
+	}
+	\caption{The all kinds of web pages of our web interface.}
+	\label{fig:intro}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Index page} is the entrance of our Chinese WestLaw system, containing the input box, option box and brief instructions. Like all other web search engines, users can raise a query by inputting text, specifying options and clicking the search button.
+    \item \textbf{Results page} will show all the search results returned by the corresponding retrieval algorithm. Users can also sort the results by some specified metrics, such as amount of fines, registration dates. Besides, considering the possible wrongly typing, our system will also conduct tolerant search and show the hits above the search results.
+    \item \textbf{Detail page} is typically designed for illustrating the details of instruments since the snippets on results page cannot include all the corresponding contents. By clicking the title of an instrument search result, the interface will skip to its detail page thus users can view more information about this instrument.
+\end{itemize}
+
+\subsection{Back-end}
+
+The back-end server mainly deals with the queries from the front-end and conduct the corresponding search on document set, then return the results back.
+
+\paragraph{Searching Operations} As illustrated in Sec. \ref{sec:intro}, our Chinese WestLaw system provides \textit{boolean search}, \textit{tolerant search} and \textit{query for instruments}. Given a query, our back-end server will feed it into the corresponding retrieval algorithms described in Sec. \ref{sec:boolean}, Sec.\ref{sec:query}. The search results will be cached for the possible same query in the future. Afterwards, all results will be returned in specified sorting order.
+
+\paragraph{Sorting} The search results are presented in relevance order by default. Users may also specify other sorting modes according to their needs. Considering the practical meanings of the attributes in given document set, our system currently supports the sorting of \textit{amount of fines} (for case records) and \textit{registration dates} (for instrument).
+
+\section{Discussion}
+
+\section{Gain \& Thinking}
+    As is accomplished with considerable commitment, this project is comprehensive to some extent, and requires a thorough understanding of indexing and query algorithms and models, including xxxxxxx. 
+
+    From the perspective of our team, the project is educational in the way it enhanced the theoretical knowledge taught in lectures and gave us a comprehensive understanding of \emph{information retrieval}. 
+
+    The accomplishment of the project should also be attributed to the patient guidance from our teacher, Kenny Zhu, and our TA's, who are willing to answer any questions raised regarding to the project and have given us much help. 
+
+\end{document}

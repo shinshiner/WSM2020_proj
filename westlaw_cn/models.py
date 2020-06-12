@@ -10,7 +10,7 @@ class Case():
         self.k_money = '执行标的金额（元）'
         self.v_money = float(idx)
         self.k_executee = '被执行人'
-        self.v_executee = '上海琦沁金属材料有限公司（法定代表人：周建斌）'
+        self.v_executee = '<span class="keyWord">上海琦沁金属材料有限公司</span>（法定代表人：周建斌）'
         self.k_executor = '申请执行人'
         self.v_executor = '中国民生银行股份有限公司上海分行'
         self.k_court = '承办法院、联系电话'

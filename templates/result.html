@@ -51,15 +51,15 @@
                     {% endif %}
 
                     {% if sort_type == 'moneyl' %}
-                        <li class="subfieldContext current" sort-type="money" onclick="sort_by('moneyl')">金额（从大到小）</li> 
+                        <li class="subfieldContext current" sort-type="moneyl" onclick="sort_by('moneyl')">金额（从大到小）</li> 
                     {% else %}
-                        <li class="subfieldContext" sort-type="money" onclick="sort_by('moneyl')">金额（从大到小）</li>
+                        <li class="subfieldContext" sort-type="moneyl" onclick="sort_by('moneyl')">金额（从大到小）</li>
                     {% endif %}
 
                     {% if sort_type == 'moneys' %}
-                        <li class="subfieldContext current" sort-type="money" onclick="sort_by('moneys')">金额（从小到大）</li> 
+                        <li class="subfieldContext current" sort-type="moneys" onclick="sort_by('moneys')">金额（从小到大）</li> 
                     {% else %}
-                        <li class="subfieldContext" sort-type="money" onclick="sort_by('moneys')">金额（从小到大）</li>
+                        <li class="subfieldContext" sort-type="moneys" onclick="sort_by('moneys')">金额（从小到大）</li>
                     {% endif %}
 
                 {% elif s_type == 'instrument' %}
@@ -70,15 +70,15 @@
                     {% endif %}
 
                     {% if sort_type == 'datel' %}
-                        <li class="subfieldContext current" sort-type="date" onclick="sort_by('datel')">结案日期（从近到远）</li> 
+                        <li class="subfieldContext current" sort-type="datel" onclick="sort_by('datel')">结案日期（从近到远）</li> 
                     {% else %}
-                        <li class="subfieldContext" sort-type="date" onclick="sort_by('datel')">结案日期（从近到远）</li>
+                        <li class="subfieldContext" sort-type="datel" onclick="sort_by('datel')">结案日期（从近到远）</li>
                     {% endif %}
 
                     {% if sort_type == 'dates' %}
-                        <li class="subfieldContext current" sort-type="date" onclick="sort_by('dates')">结案日期（从远到近）</li> 
+                        <li class="subfieldContext current" sort-type="dates" onclick="sort_by('dates')">结案日期（从远到近）</li> 
                     {% else %}
-                        <li class="subfieldContext" sort-type="date" onclick="sort_by('dates')">结案日期（从远到近）</li>
+                        <li class="subfieldContext" sort-type="dates" onclick="sort_by('dates')">结案日期（从远到近）</li>
                     {% endif %}
                 {% endif %}
 
@@ -93,14 +93,14 @@
             <div class="resultArea">
                 <p class="resultTotal">
                     <span class="info">找到约&nbsp;<span class="totalResult">{{ total_nums }}</span>&nbsp;条结果(用时<span class="time">{{ last_seconds }}</span>秒)，共约<span class="totalPage">{{ page_nums }}</span>页</span>
-                    <span class="info">fuzzy info</span>
+                    <span class="info">{% autoescape off %} {{ fuzzy_info }} {% endautoescape %}</span>
                 </p>
                 <div class="resultList"  style="float: left">
                     {% for hit in all_hits %}
                     <div class="resultItem">
                             {% if hit.type == 'case' %}
                                 <div class="itemHead">
-                                    <a onclick="display({{ hit.data4}})" target="_blank" class="title">{% autoescape off %}{{ hit.data1 }}: {{ hit.data2 }}{% endautoescape %}</a>
+                                    <a target="_blank" class="title">{% autoescape off %}{{ hit.data1 }}: {{ hit.data2 }}{% endautoescape %}</a>
                                     <span class="divsion">-</span>
                                     <!-- <span class="fileType">
                                         <span class="label">来源：</span>

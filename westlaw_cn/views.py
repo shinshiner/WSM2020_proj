@@ -2,6 +2,8 @@ from datetime import datetime
 from django.shortcuts import render
 from .models import Case, Instrument
 
+import os
+import pickle
 import random
 
 # Create your views here.
@@ -36,10 +38,7 @@ def search(request):
     s_type = request.GET.get("s_type", "case")
     sort_type = request.GET.get("sort", "relevance")
 
-    # redis_cli.zincrby("search_keywords_set", 1, key_words)
-
-    # topn_search = redis_cli.zrevrangebyscore("search_keywords_set", "+inf", "-inf", start=0, num=5)
-    # top_search = [i.decode() for i in topn_search]
+    cache_name = os.path.join('cache', '%s_%s_%s.tmp' % (key_words, s_type, sort_type))
 
     page = request.GET.get("p", "1")
     try:
@@ -47,29 +46,12 @@ def search(request):
     except:
         page = 1
 
-    # jobbole_count = redis_cli.get("jobbole_count")
+    hit_list = []
     start_time = datetime.now()
-    # response = client.search(
-    #     index= "jobbole",
-    #     body={
-    #         "query":{
-    #             "multi_match":{
-    #                 "query":key_words,
-    #                 "fields":["tags", "title", "content"]
-    #             }
-    #         },
-    #         "from":(page-1)*10,
-    #         "size":10,
-    #         "highlight": {
-    #             "pre_tags": ['<span class="keyWord">'],
-    #             "post_tags": ['</span>'],
-    #             "fields": {
-    #                 "title": {},
-    #                 "content": {},
-    #             }
-    #         }
-    #     }
-    # )
+    if os.path.exists(cache_name):
+        print('Load cache from: ', cache_name)
+        with open(cache_name, 'rb') as f:
+            hit_list = pickle.load(f)
 
     end_time = datetime.now()
     last_seconds = (end_time - start_time).total_seconds()
@@ -89,9 +71,14 @@ def search(request):
     total_nums = len(hit_list)
 
     
+    if not os.path.exists(cache_name):
+        with open(cache_name, 'wb') as f:
+            pickle.dump(hit_list, f)
+
+    
     hit_list = hit_list[(page-1)*10 : min(total_nums, page * 10)]
 
-    if (page%10) > 0:
+    if (total_nums % 10) > 0:
         page_nums = int(total_nums/10) +1
     else:
         page_nums = int(total_nums/10)
@@ -120,7 +107,8 @@ def search(request):
                                            "key_words":key_words,
                                            "total_nums":total_nums,
                                            "page_nums":page_nums,
-                                           "last_seconds":last_seconds})
+                                           "last_seconds":last_seconds,
+                                           "fuzzy_info":'已显示 <span class="keyWord">456</span> 的搜索结果'})
                                            # "jobbole_count":jobbole_count,
                                            # "topn_search":top_search})
 
