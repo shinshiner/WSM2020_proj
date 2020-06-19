@@ -59,6 +59,9 @@ class IndexProvider:
                 tokens.append(tmp['qysler'][0]['cardNum'])
                 tokens.append(tmp['qysler'][0]['corporationtypename'])             
                 tokens.append(tmp['qysler'][0]['iname'])
+            for key,value in tmp.items():
+                if type(value) == str:
+                    tokens.append(value)
             tokens = set(tokens)    # remove duplicate terms
 
             # build an entry
