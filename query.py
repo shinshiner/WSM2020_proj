@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Jun 18 09:26:52 2020
 
-@author: yiling
-"""
 #%%
 import os
 import math
@@ -23,13 +19,11 @@ def txt2dict_mod(filename):
     for line in file.readlines():
 
         k = (line.split('{')[0])[0:-1]
-        #print(k)
         v_temp = (line.split('{')[1])[0:-2]
         v_temp = v_temp.split(',')
         
         v = {}
         for item in v_temp:
-            #print(item)
             if item[0] == ' ':
                 key =  (item.split(':')[0])[2:-1]
 
@@ -59,7 +53,7 @@ path = "data/hshfy_wenshu"
 
 #read the list of stopwords
 stopword=[]
-cfp = open('data/stopwords/trunk/cn_stopwords.txt','r+',1,encoding='utf-8')   #停用词的txt文件
+cfp = open('data/stopwords/trunk/cn_stopwords.txt','r+',1,encoding='utf-8')
 for line in cfp:
     for word in line.split():
         stopword.append(word)
@@ -92,7 +86,6 @@ def query_vector(token):
     query_tfdict = {}
     tf_value=0
     tokens = seg.cut(token)
-    #print(tokens)
     word_dictionary = {}
     stops = set(stopword)
     for word in tokens:
