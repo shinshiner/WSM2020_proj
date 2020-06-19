@@ -2,7 +2,7 @@
 
 Code for WSM 2020 Project: Chinese WestLaw system
 
-![demo](https://www.mdeditor.com/images/logos/markdown.png "markdown")
+![demo](https://github.com/shinshiner/WSM2020_proj/blob/master/figures/index.png?raw=true)
 
 ## Requirements
 
@@ -45,10 +45,10 @@ We also provide the [processed data](https://github.com/pandao/editor.md "Editor
 ![boolean](https://www.mdeditor.com/images/logos/markdown.png "markdown")
 
 3. Query instruments with a sentence.
-![query sentence](https://www.mdeditor.com/images/logos/markdown.png "markdown")
+![query sentence](https://github.com/shinshiner/WSM2020_proj/blob/master/figures/instrument.png?raw=true)
 
 4. Sort the results according to your needs.
-![sort](https://www.mdeditor.com/images/logos/markdown.png "markdown")
+![sort](https://github.com/shinshiner/WSM2020_proj/blob/master/figures/sort_instrument.png?raw=true)
 
 ## Contributor
 
