@@ -21,6 +21,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^search/$', views.search, name='search'),
     url(r'^$', views.index, name="index"),
-    url(r'^suggest/$', views.fuzzy, name="suggest"),
     url(r'^display/$', views.display, name="display"),
 ]
