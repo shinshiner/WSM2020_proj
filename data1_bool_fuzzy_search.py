@@ -223,6 +223,10 @@ def shunting_yard(infix_tokens):
 #%%
 def boolean_NOT(right_operand, indexed_docIDs):
     # complement of an empty list is list of all indexed docIDs
+    right_operand=[int(i) for i in right_operand]
+    right_operand=sorted(right_operand)
+    indexed_docIDs=[int(i) for i in indexed_docIDs]
+    indexed_docIDs=sorted(indexed_docIDs)
     if (not right_operand):
         return indexed_docIDs
     
@@ -235,6 +239,7 @@ def boolean_NOT(right_operand, indexed_docIDs):
         # else if item matches and r_index still can progress, advance it by 1
         elif (r_index + 1 < len(right_operand)):
             r_index += 1
+    result=[str(i) for i in result]
     return result
 def boolean_OR(left_operand, right_operand):
     result = []     # union of left and right operand
@@ -291,7 +296,10 @@ def boolean_AND(left_operand, right_operand):
     r_index = 0                                 # current index in right_operand
     l_skip = int(math.sqrt(len(left_operand)))  # skip pointer distance for l_index
     r_skip = int(math.sqrt(len(right_operand))) # skip pointer distance for r_index
-
+    left_operand=[int(i) for i in left_operand]
+    left_operand=sorted(left_operand)
+    right_operand=[int(i) for i in right_operand]
+    right_operand=sorted(right_operand)
     while (l_index < len(left_operand) and r_index < len(right_operand)):
         l_item = left_operand[l_index]  # current item in left_operand
         r_item = right_operand[r_index] # current item in right_operand
@@ -319,7 +327,7 @@ def boolean_AND(left_operand, right_operand):
             # else advance l_index by 1
             else:
                 l_index += 1
-
+    result=[str(i) for i in result]
     return result
 
 #%%
