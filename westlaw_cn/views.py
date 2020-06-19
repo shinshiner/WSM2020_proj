@@ -7,9 +7,9 @@ import json
 import pickle
 import random
 
-# from query import getweight_query
-from boolean_fuzzy_search import result_query_data2
-from data1_bool_fuzzy_search import result_query_data1
+from query import getweight_query
+from boolean_fuzzy_search import result_query_data1
+from boolean_fuzzy_search2 import result_query_data2
 
 
 def index(request):
@@ -79,8 +79,6 @@ def search(request):
 
     end_time = datetime.now()
     last_seconds = (end_time - start_time).total_seconds()
-    if last_seconds > 3:
-        last_seconds = round(2 + random.random(),6)
 
     # save cache
     if cache and not os.path.exists(cache_name):

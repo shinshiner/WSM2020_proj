@@ -1,7 +1,8 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 cache/
-data/
+data/hshfy_wenshu/
+data/normalize_dict.txt
 data2/
 data1/
 search/

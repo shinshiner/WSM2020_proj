@@ -27,14 +27,9 @@ Download the original data from the [course website](https://adapt.seiee.sjtu.ed
 		python index_for_data2.py
 
 ### Instrument
-1. Build inverted index and tf-idf dictionary:
+1. Build inverted index and tf-idf dictionary.
 
-		# build inverted index
-		python utils.py
-		# build tf-idf dictionary
-		python utils.py
-
-2. Put the generated indexes and original data into folder `/xxx/`.
+2. Put the generated indexes and original data into folder `/data1/` and `/data2/`.
 
 We also provide the [processed data](https://github.com/pandao/editor.md "Editor.md").
 
@@ -43,7 +38,7 @@ We also provide the [processed data](https://github.com/pandao/editor.md "Editor
 1. Change to the root of the project, run `python manage.py runserver [port]` to start the server.
 
 2. Search legal case records with boolean search, we also provide fuzzy search for wrongly inputs.
-![boolean](https://www.mdeditor.com/images/logos/markdown.png "markdown")
+![boolean](https://github.com/shinshiner/WSM2020_proj/blob/master/figures/case.png?raw=true)
 
 3. Query instruments with a sentence.
 ![query sentence](https://github.com/shinshiner/WSM2020_proj/blob/master/figures/instrument.png?raw=true)
