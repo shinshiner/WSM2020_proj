@@ -22,7 +22,7 @@ html{*overflow:auto;}
 #container.sideBarHide .nav{padding-left:35px;}
 
 /*#main区域样式*/
-#main{width:1080px;padding:0 215px 0 182px;}
+#main{width:720px;padding:0 215px 0 182px;}
 #main.sideBarHide{padding-left:10px;}
 /*侧边栏搜索条件*/
 .sideBar{position:relative;float:left;margin-left:-182px;width:182px;}
@@ -60,7 +60,7 @@ html{*overflow:auto;}
 .resultArea .resultTotal .orderOpt a{margin-right:10px;color:#0080cc;}
 
 /*搜索结果列表区域*/
-.resultArea .resultList{width:1080px;padding-left:30px;}
+.resultArea .resultList{width:720px;padding-left:30px;}
 .resultArea .resultList .resultItem{margin-bottom:20px;}
 .resultArea .resultList .resultItem{margin-bottom:30px;}
 .resultArea .resultList .itemHead{margin-bottom:5px;color:#767676;} 

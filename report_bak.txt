@@ -1,5 +1,5 @@
 \documentclass{article}
-
+% \usepackage[UTF8]{ctex}
 % if you need to pass options to natbib, use, e.g.:
 %     \PassOptionsToPackage{numbers, compress}{natbib}
 % before loading neurips_2020
@@ -17,6 +17,9 @@
 % to avoid loading the natbib package, add option nonatbib:
 \usepackage[preprint]{neurips_2020}
     %  \usepackage[nonatbib]{neurips_2020}
+    
+\usepackage{CJKutf8}
+% \documentclass[UTF8]{ctexart}
 
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
@@ -86,6 +89,7 @@
   % \texttt{email} \\
 }
 
+\def\zh#1{\begin{CJK}{UTF8}{gbsn}{#1}\end{CJK}}
 \begin{document}
 
 \maketitle
@@ -93,25 +97,91 @@
 \section{Problem Description}
 \label{sec:intro}
 
-In this work, we build a Chinese WestLaw system based on the provided court records of legal cases. We construct an inverted index on the given data and implement the following operations: 
+In this work, we build a Chinese WestLaw system based on the provided court records of legal cases. We construct an inverted index on the given documents and implement the following required operations: 
 
 \begin{enumerate}
     \item \textbf{Boolean search}: Given search keys and operations between keys, our system will return all the relevant documents;
-    \item \textbf{Tolerant (fuzzy) search}: Our system has well robustness against the wrongly typed information;
+    \item \textbf{Fuzzy (tolerant) search}: Our system has well robustness against the wrongly typed information;
     \item \textbf{Query}: Our system supports the search for legal instruments with a query sentence. 
 \end{enumerate}
 
-Besides the above functions, we develop a user-friendly web interface for system access, where users can sort the returned documents according to their needs (e.g. amount of fines, registration dates, etc.).
+Besides the above functions, we develop a user-friendly web interface for system access, where users can sort the returned documents according to their needs (e.g. amount of fines, registration dates).
 
-In the following sections, we will illustrate the detailed implementation and effect of each part of our Chinese WestLaw system. The code of the whole system can refer to \url{https://github.com/shinshiner/wsm2020_proj}.
+In the following sections, we will illustrate the detailed implementation and effect of each part of our Chinese WestLaw system. The code of the whole system can refer to \url{https://github.com/shinshiner/WSM2020_proj}.
 
 \section{Indexing \& Boolean Search}
+In this part, we want to design a boolean search engine. With this engine, users provide search keys and operations between keys, and the system needs to return all the relevant documents or data. For example, if users input "\zh{小明} AND \zh{上海}", the system should return all the data contains '\zh{小明}' and '\zh{上海}' in the meantime. Before doing that, it is essential to build up an efficiency and suitable index. If not, it would take a long time to do a query operation.
+\subsection{Indexing}
+To gain the speed benefits of indexing at retrieval time, we have to build the index in advance. 
+The specific algorithm is as follows:
+
+\begin{algorithm}[htb] 
+	\caption{Building an inverted index} 
+	\label{alg:Framwork} 
+	\begin{algorithmic}[1] 
+		\STATE Collect the documents to be indexed
+		\STATE Turning each document into a list of documents then do linguistic preprocessing, producing a list of tokens
+		\STATE Index the documents that each term occurs in by creating an inverted index, consisting of a dictionary and postings
+	\end{algorithmic}
+\end{algorithm} 
+
+Within a document collection, we assume that each document has a unique serial number, known as the document identifier ( docID ). During index construction, we can simply assign successive integers to each new document when it is first encountered. In practice, we use the docID (from 0 to the number of documents) to rename all the documents. 
+
+Then, we load all the documents into a list. For each documents, we tokenize the text. For Chinese word segmentation, there are several methods, like the method based on string matching, that is, scanning the string, if the substring of the string is found to be the same as the word, then it matches. There are also methods like 2-gram or 3-gram and word segmentation based on statistics and machine learning. Considering the time complexity and precision, we use the method based on machine learning to tokenize the documents. 
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.4\linewidth]{fig/1-1.png}
+	\caption{The structure of inverted index.}
+	\label{fig:sort}
+\end{figure}
+
+As for the inverted index, multiple occurrences of the same term from the same document are then merged.Instances of the same term are then grouped, and the result is split into a dictionary and postings. The key of the dictionary is the token term and the value of the dictionary is the posting list.
+\subsection{Boolean Search}
+Boolean logic is a system of showing relationships between sets by using the words AND, OR, and NOT. Based on that, we add additional operators '(' and ')' to adjust the query order of boolean operations so that it can satisfy more query sentences. The AND operator is inclusionary and thus limits your search.The OR operator offers flexible inclusion, and typically broadens your search results.The NOT operator is exclusionary – it excludes specific search terms and so the query will not return any results with that term (or terms) in them.
+
+We define the precedence of every operators as follows: NOT=3, AND=2, OR=1, (=0, (=0.
+
+Based on this precedence, we use a data structure stack to control the order of operators and a data list to save the transformed query sentence. If there is a left bracket, we push it into the operator stack. If there is a right bracket, we pop all operators from operator stack onto output list until we hit left bracket. If there is an operator, like AND, OR, NOT, we pop operators from operator stack to queue if they are of higher precedence. If there are operands, we add them to output list.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.4\linewidth]{fig/1-2.png}
+	\caption{The examples of processed query sentence.}
+	\label{fig:sort}
+\end{figure}
+
+
+
 \label{sec:boolean}
 
-\section{Tolerant Search}
+\section{Fuzzy Search}
 
+When we are searching using attributes including person name, city, case code, company name, etc., it's possible that we may wrongly type some information. Under this circumstance, the system is required to do fuzzy search.
+
+\subsection{ Similarity of  two strings}
+
+In order to do fuzzy search, we firstly need to calculate the similarity of two strings.  Here, we calculate the difference between two sequences based on the Levenshtein Distance algorithm. 
+
+The Levenshtein Distance algorithm, also known as the Edit Distance algorithm, refers to the minimum number of editing operations required to convert from one string to another between two strings. The permitted editing operations include replacing one character with another character, inserting a character, and deleting a character. Generally speaking, the smaller the editing distance, the greater the similarity of the two strings.
+
+We provide with an example to explain how it works. Consider that we have two strings  str1="book1" and str2="book2". We can easily find out that it will takes 1 operation to change str1 to str2. So their Levenshtein Distance = 1. Meanwhile, their similarity based on Levenshtein Distance is calculated by $$\text{Similarity(str1, str2)} = 1-\frac{1}{\max(\text{str1.len},\text{str2.len})} = 0.8 $$
+
+\subsection{ Algorithm for doing fuzzy search}
+Given a query and a list of documents, our aim is to find  relevant documents according to the query. Here, we build a dictionary whose keys are the tokens and the exact search keys. Meanwhile, we set a threshold for similarity. After  calculating the similarity of the key and our query, we will put the documents which are over the threshold in our candidate relevant list.
 \section{Query}
 \label{sec:query}
+In this section, we mainly focus on searching for legal instruments with a query sentence. The instruments will then be returned according to the relevance to the query sentence. 
+
+\subsection{Calculating for relevance}
+We make use of term frequency–inverse document frequency(TF-IDF) to measure the relevance to the query sentence. Essentially, TF-IDF works by determining the relative frequency of a word in a particular document and inversely proportioning that word to the entire document corpus. Intuitively, this calculation determines the relevance of a given query in a particular document.
+
+In a given document, term frequency refers to the frequency with which a given word appears in the document. This number is normalized to the term count to prevent it from biasing towards long files. Inverse document frequency is a measure of the general importance of a word. The idf of a specific word can be obtained by dividing the total number of files by the number of files containing the word, and then taking the logarithm of the obtained quotient to the base 10.
+
+Then the relevance to the document is given by the product of two frequencies.
+
+\subsection{Process for implementing query}
+Given a query and a folder of instruments, our goal is to return a list of relevant instruments. We firstly implement the segmentation for document and the query. Then we build dictionary which store the TF-IDF value for each token appears in document. After that, we compute the cosine similarity between the query and each document. Finally, we will be able to retrieve the relevant documents.
 
 \section{Web Interface \& Sorting}
 
@@ -126,15 +196,20 @@ We render the front-end of our web interface with \textit{html}, \textit{css} te
 \begin{figure}[htbp]
 	\centering
 	\subfigure[Index page]{
-		\includegraphics[width=0.3\linewidth]{figures/1.png}
+		\includegraphics[width=0.4\linewidth]{fig/index.png}
 		\label{fig:intro-a}
 	}
-	\subfigure[Results page]{
-		\includegraphics[width=0.3\linewidth]{figures/3.png}
+	\subfigure[Results page for legal record]{
+		\includegraphics[width=0.4\linewidth]{fig/res1.png}
 		\label{fig:intro-c}
 	}
+	
+	\subfigure[Results page for instrument]{
+		\includegraphics[width=0.4\linewidth]{fig/instrument.png}
+		\label{fig:intro-cc}
+	}
 	\subfigure[Detail page]{
-		\includegraphics[width=0.3\linewidth]{figures/4.png}
+		\includegraphics[width=0.4\linewidth]{fig/detail.png}
 		\label{fig:intro-d}
 	}
 	\caption{The all kinds of web pages of our web interface.}
@@ -143,22 +218,122 @@ We render the front-end of our web interface with \textit{html}, \textit{css} te
 
 \begin{itemize}
     \item \textbf{Index page} is the entrance of our Chinese WestLaw system, containing the input box, option box and brief instructions. Like all other web search engines, users can raise a query by inputting text, specifying options and clicking the search button.
-    \item \textbf{Results page} will show all the search results returned by the corresponding retrieval algorithm. Users can also sort the results by some specified metrics, such as amount of fines, registration dates. Besides, considering the possible wrongly typing, our system will also conduct tolerant search and show the hits above the search results.
-    \item \textbf{Detail page} is typically designed for illustrating the details of instruments since the snippets on results page cannot include all the corresponding contents. By clicking the title of an instrument search result, the interface will skip to its detail page thus users can view more information about this instrument.
+    
+    \item \textbf{Results page} will show all the search results returned by the corresponding retrieval algorithm. In this page, users can also specify some metrics (e.g. the amount of fines, registration dates) to sort the results.
+    
+    Besides, considering the possible wrongly typing, our system will also conduct fuzzy search and show the hints above the search results.
+    
+    Moreover, we also highlight the query terms on the title and snippet of each search result, which can provide more matching information to users. The detailed illustration can refer to \ref{sec:result}.
+    
+    \item \textbf{Detail page} is typically designed for illustrating the detail of each document since the snippets on results page cannot include all the corresponding contents. By clicking the title of a search result, the interface will jump to its detail page thus users can view more information about this case record or instrument.
 \end{itemize}
 
 \subsection{Back-end}
+\label{sec:backend}
 
 The back-end server mainly deals with the queries from the front-end and conduct the corresponding search on document set, then return the results back.
 
-\paragraph{Searching Operations} As illustrated in Sec. \ref{sec:intro}, our Chinese WestLaw system provides \textit{boolean search}, \textit{tolerant search} and \textit{query for instruments}. Given a query, our back-end server will feed it into the corresponding retrieval algorithms described in Sec. \ref{sec:boolean}, Sec.\ref{sec:query}. The search results will be cached for the possible same query in the future. Afterwards, all results will be returned in specified sorting order.
+\paragraph{Searching Operations} As illustrated in Sec. \ref{sec:intro}, our Chinese WestLaw system provides \textit{boolean search}, \textit{fuzzy search} and \textit{query for instruments}. Given a query, our back-end server will feed it into the corresponding retrieval algorithms described in Sec. \ref{sec:boolean}, Sec.\ref{sec:query}. The search results will be cached for the possible same query in the future. Afterwards, all results will be returned in specified sorting order.
 
-\paragraph{Sorting} The search results are presented in relevance order by default. Users may also specify other sorting modes according to their needs. Considering the practical meanings of the attributes in given document set, our system currently supports the sorting of \textit{amount of fines} (for case records) and \textit{registration dates} (for instrument).
+\paragraph{Sorting} The search results are presented in relevance order by default. Users may also specify other sorting modes according to their needs. Considering the practical meanings of the attributes in given document set, our system currently supports the sorting of \textit{amount of fines} (for case records) and \textit{registration dates} (for case records and instruments).
 
-\section{Discussion}
+We also notice that \textbf{the case records on given data vary a lot}, that is, the keys of documents in \textit{data1} folder are different from those in \textit{data2} folder. There exists a problem that some sorting metrics cannot be found on all search results. For instance, the documents in \textit{data2} folder do not contain \textit{registration dates} attribute. Therefore, we firstly sort the results that contain the corresponding keys, then append the left ones to the end.
+
+\section{Results Illustration}
+\label{sec:result}
+
+In this section, we would show some sample search results acquired by the above algorithms, namely boolean search, fuzzy search and tf-idf query. Our system is deployed in a laptop with Intel i7-8750H and 8 GB memory.
+
+\subsection{Boolean Search \& Fuzzy Search}
+
+Our Chinese system provides boolean search for legal records, and Fig. \ref{fig:res_bool} presents some typical searching results with various boolean query.
+
+\begin{figure}[htbp]
+	\centering
+	\subfigure[Some of basic boolean operations]{
+		\includegraphics[width=0.4\linewidth]{fig/query_long.png}
+		\label{fig:res_bool_1}
+	}
+	\subfigure[Operations with brackets]{
+		\includegraphics[width=0.4\linewidth]{fig/query_middle.png}
+		\label{fig:res_bool_2}
+	}
+	\caption{The boolean search results with different kinds of boolean query.}
+	\label{fig:res_bool}
+\end{figure}
+
+The system will also conduct fuzzy search to provide robust results. As shown in Fig. \ref{fig:tolerant}, a user may wrongly input a query as '\zh{上海}', and our system also return the similar terms like '\zh{上海}', '\zh{上海}' and etc.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.4\linewidth]{fig/query_long.png}
+	\caption{A typical case of fuzzy search. The results with suggested terms '\zh{上海}' are also returned accompanied with the original inputs.}
+	\label{fig:tolerant}
+\end{figure}
+
+Besides the fuzzy terms, the corresponding fuzzy scores (Levenshtein Distance) are also given to determine the priority of fuzzy terms, as illustrated in Fig. \ref{fig:res_fuzzy}.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.4\linewidth]{fig/query_long.png}
+	\caption{The returned fuzzy terms and the corresponding scores.}
+	\label{fig:res_fuzzy}
+\end{figure}
+
+\subsection{Query Sentence}
+
+We test our query algorithm on instrument under three categories of inputs: 1) long query: the number of characters on the query sentence is larger than 20; 2) middle query: the number of characters is about 10; 3) short query: the number of characters is less than 10. Fig. \ref{fig:res_query} illustrates the typical examples of the three cases.
+
+\begin{figure}[htbp]
+	\centering
+	\subfigure[Short query]{
+		\includegraphics[width=0.27\linewidth]{fig/query_long.png}
+		\label{fig:res_query_s}
+	}
+	\subfigure[Middle query]{
+		\includegraphics[width=0.27\linewidth]{fig/query_middle.png}
+		\label{fig:res_query_m}
+	}
+	\subfigure[Long query]{
+		\includegraphics[width=0.27\linewidth]{fig/query_short.png}
+		\label{fig:res_query_l}
+	}
+	\caption{The typical search results of instrument query on different input lengths.}
+	\label{fig:res_query}
+\end{figure}
+
+The highlights on sample results demonstrate the high relevance and great matching ability of our query algorithm. We find that a longer query tends to get more accurate results, while the results of a shorter query may vary a lot, which fits the common sense. For example, the snippets on Fig. \ref{fig:res_query_l} shares the similar pattern and users can easily narrow the searching scope, and the snippets on Fig. \ref{fig:res_query_s} show different legal cases thus providing more options for users.
+
+\subsection{Sorting}
+
+As described in Sec. \ref{sec:backend}, our system provides various of sorting options to fit the specific needs of users. Fig. \ref{fig:sort} shows some typical sorting results.
+
+\begin{figure}[htbp]
+	\centering
+	\subfigure[Sorting with fine on legal records]{
+		\includegraphics[width=0.4\linewidth]{fig/query_long.png}
+		\label{fig:res_sort_1}
+	}
+	\subfigure[Sorting with registration date on instruments]{
+		\includegraphics[width=0.4\linewidth]{fig/sort_instrument.png}
+		\label{fig:res_sort_2}
+	}
+	\caption{The sorting results under different options and documents. The red rectangles mark the attributes used for sorting and the corresponding values.}
+	\label{fig:sort}
+\end{figure}
+
+\section{Discussion \& Future Work}
+
+We found this project is interesting and meaningful after finishing it, thus we hope to keep maintaining it and make improvements in the future. Here we list some directions that deserve further exploration.
+
+\paragraph{Memory usage optimization} When the system is initialized, all related indexing dumps (e.g. inverted index, tf-idf vectors of the documents) should be loaded into memory first. Therefore, reduce the space usage of these dumps is of great significance. We construct the dumps with plain storage method, namely storing them as \textit{dictionary} type of Python since our memory space is large enough. We argue that the space usage can be further optimized by introducing some compression and pruning techniques, such as front-coding, VB codes.
+
+\paragraph{Implementation improvements} For clarity and simplicity of the code, we implement the whole system with Python. A problem is that such implementation may increase time consumption. Although this problem is not obvious in our system, the impact may expand as the document collection enlarges. We believe this problem can be greatly alleviated by replacing the core computation parts with a compiled language like C++, and Python functions can just serve as an interface.
+
+\paragraph{Deployment} We just deploy our Chinese WestLaw system in our laptop so far, the poor CPU performance and small memory space may limit the efficiency of searching and the scale of document collection. It would be better to deploy it into a more powerful server with ports allowing external access.
 
 \section{Gain \& Thinking}
-    As is accomplished with considerable commitment, this project is comprehensive to some extent, and requires a thorough understanding of indexing and query algorithms and models, including xxxxxxx. 
+    As is accomplished with considerable commitment, this project is comprehensive to some extent, and requires a thorough understanding of indexing and query algorithms and models, including inverted index, Levenshtein Distance, tf-idf and etc. 
 
     From the perspective of our team, the project is educational in the way it enhanced the theoretical knowledge taught in lectures and gave us a comprehensive understanding of \emph{information retrieval}. 
 

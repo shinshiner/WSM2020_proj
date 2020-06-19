@@ -44,11 +44,11 @@
                 <div class="subfield">排序方式</div>
 
                 {% if s_type == 'case' %}
-                    {% if sort_type == 'relevance' %}
+                    <!-- {% if sort_type == 'relevance' %}
                         <li class="subfieldContext current" sort-type="relevance" onclick="sort_by('relevance')">相关度</li>
                     {% else %}
                         <li class="subfieldContext" sort-type="relevance" onclick="sort_by('relevance')">相关度</li>
-                    {% endif %}
+                    {% endif %} -->
 
                     {% if sort_type == 'moneyl' %}
                         <li class="subfieldContext current" sort-type="moneyl" onclick="sort_by('moneyl')">金额（从大到小）</li> 
@@ -62,11 +62,23 @@
                         <li class="subfieldContext" sort-type="moneys" onclick="sort_by('moneys')">金额（从小到大）</li>
                     {% endif %}
 
+                    {% if sort_type == 'datel' %}
+                        <li class="subfieldContext current" sort-type="datel" onclick="sort_by('datel')">结案日期（从近到远）</li> 
+                    {% else %}
+                        <li class="subfieldContext" sort-type="datel" onclick="sort_by('datel')">结案日期（从近到远）</li>
+                    {% endif %}
+
+                    {% if sort_type == 'dates' %}
+                        <li class="subfieldContext current" sort-type="dates" onclick="sort_by('dates')">结案日期（从远到近）</li> 
+                    {% else %}
+                        <li class="subfieldContext" sort-type="dates" onclick="sort_by('dates')">结案日期（从远到近）</li>
+                    {% endif %}
+
                 {% elif s_type == 'instrument' %}
                     {% if sort_type == 'relevance' %}
-                        <li class="subfieldContext current" sort-type="relevance">相关度</li>
+                        <li class="subfieldContext current" sort-type="relevance" onclick="sort_by('relevance')">相关度</li>
                     {% else %}
-                        <li class="subfieldContext" sort-type="relevance">相关度</li>
+                        <li class="subfieldContext" sort-type="relevance" onclick="sort_by('relevance')">相关度</li>
                     {% endif %}
 
                     {% if sort_type == 'datel' %}
@@ -98,28 +110,28 @@
                 <div class="resultList"  style="float: left">
                     {% for hit in all_hits %}
                     <div class="resultItem">
-                            {% if hit.type == 'case' %}
+                            {% if hit.type == '1' or hit.type == '2'%}
                                 <div class="itemHead">
-                                    <a target="_blank" class="title">{% autoescape off %}{{ hit.data1 }}: {{ hit.data2 }}{% endautoescape %}</a>
+                                    <a onclick="display(1, {{ hit.type}})" target="_blank"  class="title">案号: {% autoescape off %}{{ hit.title }}{% endautoescape %}</a>
                                     <span class="divsion">-</span>
                                     <!-- <span class="fileType">
                                         <span class="label">来源：</span>
                                         <span class="value">博客园</span>
                                     </span> -->
                                     <span class="dependValue">
-                                        <span class="label">{{ hit.k_money }} : </span>
-                                        <span class="value">{{ hit.v_money }}</span>
+                                        <span class="label">法庭</span>
+                                        <span class="value">{{ hit.sub_title }}</span>
                                     </span>
                                 </div>
                                 <div class="itemBody">
-                                    {% autoescape off %}{{ hit.k_executee }}: {{ hit.v_executee }} {% endautoescape %}
+                                    {% autoescape off %}{{ hit.snippet }} {% endautoescape %}
                                 </div>
-                                <div class="itemBody">
+                                <!-- <div class="itemBody">
                                     {% autoescape off %}{{ hit.k_executor }}: {{ hit.v_executor }} {% endautoescape %}
                                 </div>
                                 <div class="itemBody">
                                     {% autoescape off %}{{ hit.k_court }}: {{ hit.v_court }} {% endautoescape %}
-                                </div>
+                                </div> -->
                                 <!-- <div class="itemFoot">
                                     <span class="info">
                                         <label>网站：</label>
@@ -132,23 +144,23 @@
                                 </div> -->
                             {% endif %}
 
-                            {% if hit.type == 'instrument' %}
+                            {% if hit.type == '3' %}
                                 <div class="itemHead">
-                                    <a onclick="display({{ hit.data4}})" target="_blank" class="title">{% autoescape off %}{{ hit.data1 }}: {{ hit.data2 }}{% endautoescape %}</a>
+                                    <a onclick="display({{ hit.idx}}, {{hit.type}})" target="_blank" class="title">{% autoescape off %}{{ hit.title }}{% endautoescape %}</a>
                                     <span class="divsion">-</span>
                                     <!-- <span class="fileType">
                                         <span class="label">来源：</span>
                                         <span class="value">博客园</span>
                                     </span> -->
                                     <span class="dependValue">
-                                        <span class="label">{{ hit.k_date }} : </span>
-                                        <span class="value">{{ hit.v_date }}</span>
+                                        <span class="label">结案日期 : </span>
+                                        <span class="value">{{ hit.sub_title }}</span>
                                     </span>
                                 </div>
                                 <div class="itemBody">
-                                    {% autoescape off %}{{ hit.k_title }}: {{ hit.v_title }} {% endautoescape %}
+                                    {% autoescape off %}{{ hit.snippet }} {% endautoescape %}
                                 </div>
-                                <div class="itemBody">
+                                <!-- <div class="itemBody">
                                     {% autoescape off %}{{ hit.k_category }}: {{ hit.v_category }} {% endautoescape %}
                                 </div>
                                 <div class="itemBody">
@@ -159,7 +171,7 @@
                                 </div>
                                 <div class="itemBody">
                                     {% autoescape off %}{{ hit.k_level }}: {{ hit.v_level }} {% endautoescape %}
-                                </div>
+                                </div> -->
                             {% endif %}
                         </div>
                     {% endfor %}
@@ -171,7 +183,6 @@
     </div><!--End of bd-->
 </div>
 
-<div id="foot">Copyright &copy;projectsedu.com 版权所有  E-mail:admin@projectsedu.com</div>
 </body>
 <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/global.js' %}"></script>
@@ -326,8 +337,8 @@
         window.location.href=search_url+'?q='+val+"&s_type="+$(".searchItem.current").attr('data-type')+"&sort=money"
     }
 
-    function display(id){
-        window.location.href='/display?idx='+id
+    function display(id,type){
+        window.location.href='/display?idx='+id+"&doc_type="+type
     }
 
     function MapSearchArr(){
