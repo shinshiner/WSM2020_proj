@@ -163,7 +163,10 @@ def boolean_OR(left_operand, right_operand):
     result = []     # union of left and right operand
     l_index = 0     # current index in left_operand
     r_index = 0     # current index in right_operand
-
+    left_operand=[int(i) for i in left_operand]
+    left_operand=sorted(left_operand)
+    right_operand=[int(i) for i in right_operand]
+    right_operand=sorted(right_operand)
     # while lists have not yet been covered
     while (l_index < len(left_operand) or r_index < len(right_operand)):
         # if both list are not yet exhausted
@@ -198,7 +201,7 @@ def boolean_OR(left_operand, right_operand):
             l_item = left_operand[l_index]
             result.append(l_item)
             l_index += 1
-
+    result=[str(i) for i in result]
     return result
 
 """
@@ -247,7 +250,6 @@ def boolean_AND(left_operand, right_operand):
                 l_index += 1
     result=[str(i) for i in result]
     return result
-
 
 def load_posting_list(token,index):
     a=list(index.get_inverted_index()[token])
