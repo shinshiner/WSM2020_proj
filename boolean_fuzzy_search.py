@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
 #%%
-import shutil
 import os
 import math
 import json
@@ -15,124 +15,59 @@ from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import bisect
 
-path = 'data1/zxgk'
 
-#%%
+path = 'data2/info'
+
+
 def load_data_objects(input_file_name):
     with open(os.path.join(path, input_file_name), 'r') as input_file:
         return json.load(input_file)
-    
 
+   
 class IndexProvider:
-    def __init__(self, scraper_output_file_name='./zxgk'):
+    def __init__(self, scraper_output_file_name="./info"):
         self.scraper_output_file_name = scraper_output_file_name
         self.indices = {}
-    def create_inverted_index(self, fields=['id', 'iname', 'caseCode', 'age', 'sexy', 'cardNum', 'businessEntity', 'courtName', 'areaName', 'partyTypeName', 'gistId', 'regDate', 'gistUnit', 'duty', 'performance', 'performedPart', 'unperformPart', 'disruptTypeName', 'publishDate']):
+
+    def create_inverted_index(self, fields=['执行标的金额（元）', '承办法院、联系电话','案号', '申请执行人', '被执行人','被执行人地址']):
         """
         Creates an inverted index and writes it to a file based on some structured input from the scraper,
         indexed by the specified fields.
         :param fields:
         :return:
         """
-
-        list_json = sorted(os.listdir('./zxgk'))[:100000]
+        list_json = sorted(os.listdir('./info'))
         inverted_index = {}
 
         for f_name in list_json:
             document_id = f_name.split('.')[0]
-            tmp=load_data_objects(f_name)
-            document = ' '.join([str(value) if key in fields else ' ' for key, value in tmp.items()])
-                
-                
+            document = ' '.join([value if key in fields else ' ' for key, value in load_data_objects(f_name).items()])
             tokens = seg.cut(document)
-            for key,value in tmp.items():
-                if key in fields:
-                    tokens.append(value) 
-                else:
-                    if tmp['qysler']!=[]:
-                        tokens.append(tmp['qysler'][0]['cardNum'])
-                        tokens.append(tmp['qysler'][0]['corporationtypename'])             
-                        tokens.append(tmp['qysler'][0]['iname'])
-            tokens=set(tokens)
-            for token in tokens:
-                if token in inverted_index.keys():
-                    inverted_index[token].append(document_id)
-                else:
-                    inverted_index_entry = [document_id]
-                    inverted_index[token] = inverted_index_entry
-            print(f_name)
-        meta_information = dict(num_documents=len(list_json),num_terms=len(inverted_index),)
-        new_index_object = Index(inverted_index, fields, meta_information)
-        self.indices[str(fields)] = new_index_object
-        return new_index_object
-
-class Index:
-    def __init__(self, inverted_index, fields, meta_information):
-        self.inverted_index = inverted_index
-        self.fields = fields
-        self.meta_information = meta_information
-
-    def get_inverted_index(self):
-        return self.inverted_index
-
-    def get_meta_information(self):
-        return self.meta_information
-    def get_fields(self):
-        return self.fields
-    def get_inverted_index_for_file(self):
-        result = deepcopy(self.inverted_index)
-        result['meta_information'] = self.meta_information
-        return result
-
-#%%
-        
-
-class IndexProvider:
-    def __init__(self, scraper_output_file_name='./zxgk'):
-        self.scraper_output_file_name = scraper_output_file_name
-        self.indices = {}
-    def create_inverted_index(self, fields=['id', 'iname', 'caseCode', 'age', 'sexy', 'cardNum', 'businessEntity', 'courtName', 'areaName', 'partyTypeName', 'gistId', 'regDate', 'gistUnit', 'duty', 'performance', 'performedPart', 'unperformPart', 'disruptTypeName', 'publishDate']):
-        """
-        Creates an inverted index and writes it to a file based on some structured input from the scraper,
-        indexed by the specified fields.
-        :param fields:
-        :return:
-        """
-        list_json = sorted(os.listdir('./zxgk'))[:100000]
-        inverted_index = {}
-
-        for f_name in list_json:
-            document_id = f_name.split('.')[0]
-            tmp=load_data_objects(f_name)
-            tmp_list=[]
-            for key,value in tmp.items():
-                if key in fields:
-                    if type(value) != str and key!='age':
-                        tmp_list.append(' ')
+            tokens.remove('（')
+            tokens.remove('）')
+            for key,value in load_data_objects(str(document_id)+'.json').items():
+                if key== '承办法院、联系电话':
+                    value=value.split()
+                    if len(value)==2:
+                        tokens.append(value[0])
+                        tokens.append(value[1])
                     else:
-                        tmp_list.append(str(value))
+                        tokens.append(value[0])
                 else:
-                    tmp_list.append(' ')
-                document=' '.join(tmp_list)
-                
-            tokens = seg.cut(document)
-            if tmp['qysler']!=[]:
-                tokens.append(tmp['qysler'][0]['cardNum'])
-                tokens.append(tmp['qysler'][0]['corporationtypename'])             
-                tokens.append(tmp['qysler'][0]['iname'])
+                    tokens.append(value) 
+            token_counts = [(token, tokens.count(token),) for token in set(tokens)]
             tokens=set(tokens)
-            
             for token in tokens:
                 if token in inverted_index.keys():
                     inverted_index[token].append(document_id)
                 else:
                     inverted_index_entry = [document_id]
                     inverted_index[token] = inverted_index_entry
-            print(f_name)
         meta_information = dict(num_documents=len(list_json),num_terms=len(inverted_index),)
         new_index_object = Index(inverted_index, fields, meta_information)
         self.indices[str(fields)] = new_index_object
         return new_index_object
+
 
 class Index:
     def __init__(self, inverted_index, fields, meta_information):
@@ -152,8 +87,9 @@ class Index:
         result['meta_information'] = self.meta_information
         return result
     
- #%%
+
 def shunting_yard(infix_tokens):
+    
     # define precedences
     precedence = {}
     precedence['NOT'] = 3
@@ -199,10 +135,8 @@ def shunting_yard(infix_tokens):
     # while there are still operators on the stack, pop them into the queue
     while (operator_stack):
         output.append(operator_stack.pop())
-    # print ('postfix:', output)  # check
     return output
 
-#%%
 def boolean_NOT(right_operand, indexed_docIDs):
     # complement of an empty list is list of all indexed docIDs
     right_operand=[int(i) for i in right_operand]
@@ -223,7 +157,6 @@ def boolean_NOT(right_operand, indexed_docIDs):
             r_index += 1
     result=[str(i) for i in result]
     return result
-
 def boolean_OR(left_operand, right_operand):
     result = []     # union of left and right operand
     l_index = 0     # current index in left_operand
@@ -316,10 +249,11 @@ def boolean_AND(left_operand, right_operand):
     result=[str(i) for i in result]
     return result
 
-#%%
 def load_posting_list(token,index):
     a=list(index.get_inverted_index()[token])
     return a
+
+
 def process_query(query, index):
     query = query.replace('(', '( ')
     query = query.replace(')', ' )')
@@ -330,7 +264,7 @@ def process_query(query, index):
 
     while postfix_queue:
         token = postfix_queue.popleft()
-        result = [] # the evaluated result at each stage
+        result = []     # the evaluated result at each stage
         # if operand, add postings list for term to results stack
         if (token != 'AND' and token != 'OR' and token != 'NOT'):
             # default empty list if not in dictionary
@@ -356,33 +290,31 @@ def process_query(query, index):
             result = boolean_NOT(right_operand, indexed_docIDs) # evaluate NOT
 
         # push evaluated result back to stack
-        results_stack.append(result)                        
-        # print ('result', result) # check
+        results_stack.append(result)
 
     # NOTE: at this point results_stack should only have one item and it is the final result
     if len(results_stack) != 1: print ("ERROR: results_stack. Please check valid query") # check for errors
     
     return results_stack.pop()
 
-#%%
-def load_inverted_index(fields=['id', 'iname', 'caseCode', 'age', 'sexy', 'cardNum', 'businessEntity', 'courtName', 'areaName', 'partyTypeName', 'gistId', 'regDate', 'gistUnit', 'duty', 'performance', 'performedPart', 'unperformPart', 'disruptTypeName', 'publishDate']):
-    with open('data1/index_data1.txt', 'r') as input_file:
-        existing_inverted_index= json.load(input_file)
+
+def load_inverted_index():
+    fields=['执行标的金额（元）', '承办法院、联系电话','案号', '申请执行人', '被执行人','被执行人地址']
+    with open('data2/index_data2.txt', 'r') as input_file:
+        existing_inverted_index = json.load(input_file)
     if existing_inverted_index:
         meta_information = existing_inverted_index.pop('meta_information')
         new_index_object = Index(existing_inverted_index, fields, meta_information)
         return new_index_object
 
 
-index=load_inverted_index()
+index = load_inverted_index()
 sorted_index_key = sorted(index.get_inverted_index().keys())
 up_bound = len(sorted_index_key)
 print(up_bound, ' keys in index')
 fuzzy_thres = 30
 max_show = 300
 
-
-#%%
 def fuzzy_search(query,index):
     keys = []
     list_test = []
@@ -391,8 +323,8 @@ def fuzzy_search(query,index):
 
     insert_point = bisect.bisect_left(sorted_index_key, query)
     keys = sorted_index_key[max(0, insert_point-100): min(insert_point+100, up_bound)]
-    
     list_test = process.extract(query, keys)
+    
     for ob in list_test:
         if(ob[1]>90):
             list_fuzzy.append(ob)
@@ -401,32 +333,10 @@ def fuzzy_search(query,index):
             fuz_word = fuz[0]
             result = (fuz_word,load_posting_list(fuz_word,index),fuz[1])
             result_fuzzy.append(result)
+
     return result_fuzzy
 
-#%%
-def result_query(query,index):
-    res=[]
-    query_list=query
-    query_list = query_list.replace('AND', ' ')
-    query_list = query_list.replace('NOT', ' ')
-    query_list = query_list.replace('OR', ' ')
-    query_list = query_list.replace('(', ' ')
-    query_list = query_list.replace(')', ' ')
-    query_list = query_list.split()
-    if process_query==[]:
-        return []
-    for i in process_query(query,index):
-        res.append(load_data_objects((i+'.json')))
-    res2=[]
-    for i in res:
-        for key,value in i.items():
-            for j in query_list:
-                if j in str(value):
-                    if isinstance(i[key],str):
-                        i[key]=i[key].replace(j,'<span class=keyWord>'+j+'</span>')
-        res2.append(i)
-    return res2
-#%%
+
 def boolean_search(postfix_queue):
     results_stack = []
     while postfix_queue:
@@ -456,17 +366,16 @@ def boolean_search(postfix_queue):
             indexed_docIDs=[str(i) for i in range(index.get_meta_information()['num_documents'])]
             right_operand = results_stack.pop()
             result = boolean_NOT(right_operand, indexed_docIDs) # evaluate NOT
-
         # push evaluated result back to stack
         results_stack.append(result)                        
-        # print ('result', result) # check
 
     # NOTE: at this point results_stack should only have one item and it is the final result
     
     if len(results_stack) != 1: print ("ERROR: results_stack. Please check valid query") # check for errors
-    print(results_stack)
+
     return results_stack.pop()
-#%%
+
+
 def fuzzy_query(query, index, number):
     query = query.replace('(', '( ')
     query = query.replace(')', ' )')
@@ -478,7 +387,7 @@ def fuzzy_query(query, index, number):
     fuzzy_info = set()
     postfix_queue = collections.deque(shunting_yard(query))
     
-    #dict_fuzzy stores the fuzzy candidates for each token
+    # dict_fuzzy stores the fuzzy candidates for each token  
     for item in postfix_queue :
         if item != 'AND' and item != 'OR' and item != 'NOT':
             list_query.append(item)
@@ -486,8 +395,9 @@ def fuzzy_query(query, index, number):
     for item in list_query:
         fuz_item= fuzzy_search(item,index)
         dict_fuzzy[item] = fuz_item
-        
-    #Here dict_score is a dictionary where key is the fuzzy match token, value is the score
+   
+    
+    # Here dict_score is a dictionary where key is the fuzzy match token, value is the score
     dict_score = {}
 
     for key,value in dict_fuzzy.items():
@@ -499,20 +409,16 @@ def fuzzy_query(query, index, number):
     count_fuzzy = 0 
     for key,value in dict_score.items():
         if value < 100:
-            count_fuzzy = count_fuzzy+1
-            
- 
+            count_fuzzy = count_fuzzy + 1 
     
     res = boolean_search(postfix_queue)
     if res!=[]:
         for item_res in res:
             results.append(item_res)
-
     
     dict_used = {}
     
     while ( (len(results)< number) and (len(dict_used)<count_fuzzy)):
-
         query_loop = query.copy()
         d2 = {}
         for key,value in dict_score.items():
@@ -528,7 +434,6 @@ def fuzzy_query(query, index, number):
                 if(count_max ==1):
                     replace_cand = key
                     dict_used[key] = value
-                    
         replace_query = process.extractOne(replace_cand, query_loop)[0]
         pos = 0
         for item in query_loop:
@@ -537,7 +442,6 @@ def fuzzy_query(query, index, number):
             pos = pos+1
         
         postfix_queue = collections.deque(shunting_yard(query_loop))
-        
         res = boolean_search(postfix_queue)
         if res!=[]:
             for it_query in query_loop:
@@ -545,92 +449,93 @@ def fuzzy_query(query, index, number):
             for item_res in res:
                 results.append(item_res)
         
-     
-    results_r = list(set(results)) 
+
+    results_r = list(set(results))   
     result_return = []
     result_return.append(results_r)
     result_return.append(fuzzy_info)
     
     return result_return
 
-#%%
-def result_query_data1(query,if_fuzzy):
-    
-    res=[]
-    res_fuzz=set()
+
+def result_query_data2(query, if_fuzzy):
+    res = []
+    res_fuzz = set()
     res5 = []
-    query_list=query
+    query_list = query
     query_list = query_list.replace('AND', ' ')
     query_list = query_list.replace('NOT', ' ')
     query_list = query_list.replace('OR', ' ')
     query_list = query_list.replace('(', ' ')
     query_list = query_list.replace(')', ' ')
     query_list = query_list.split()
-    
-    if if_fuzzy == True :
-         print('use fuzzy search')
-         fuz_query_result = fuzzy_query(query, index, fuzzy_thres)
-         print('fuzzy search finish get results: ')
-         if fuz_query_result == []:
-             return [], []
 
-         fuzzy_list = fuz_query_result[1]
-         res_list = fuz_query_result[0][:min(max_show, len(fuz_query_result[0]))]
-         for i in res_list:
-             res_i = load_data_objects((i+'.json'))
-             res_i['idx'] = i
-             res.append(res_i)
-             
-         res2=[]
-         for i in res:
-             for key,value in i.items():
-                 for j in query_list:
-                     if j in str(value):
-                         if isinstance(i[key],str):
-                             i[key]=i[key].replace(j,'<span class=keyWord>'+j+'</span>')
-             res2.append(i)
-    
-         res3=[]
-         for i in res2:
-             for key,value in i.items():
-                 for j in fuzzy_list:
-                     if j in str(value):
-                         if isinstance(i[key],str):
-                             i[key]=i[key].replace(j,'<span class=keyWord>'+j+'</span>')
-                             res_fuzz.add(j)
-             res3.append(i)
+    # use fuzzy search
+    if if_fuzzy == True:
+        print('use fuzzy search')
+        fuz_query_result = fuzzy_query(query, index, fuzzy_thres)
+        print('fuzzy search finish get results: ')
+        if fuz_query_result == []:
+            return [], []
          
-         res_final = []
-         for i in res3:
-             i['type']='1'
-             res_final.append(i)
-            
+        fuzzy_list = fuz_query_result[1]
+        res_list = fuz_query_result[0][:min(max_show, len(fuz_query_result[0]))]
+        for i in res_list:
+            res_i = load_data_objects((i+'.json'))
+            res_i['idx'] = i
+            res.append(res_i)
+        res2 = []
+        for i in res:
+            for key,value in i.items():
+                for j in query_list:
+                    if j in value:
+                        i[key]=i[key].replace(j,'<span class=keyWord>'+j+'</span>')
+            res2.append(i)
+
+        res3 = []
+        for i in res2:
+            for key,value in i.items():
+                for j in fuzzy_list:
+                    if j in value:
+                        i[key]=i[key].replace(j,'<span class=keyWord>'+j+'</span>')
+                        res_fuzz.add(j)
+            res3.append(i)
+
+        res_final = []
+        for i in res3:
+            i['type'] = '2'
+            res_final.append(i)
     elif if_fuzzy == False :
         print('do not use fuzzy search')
         query_res = process_query(query, index)
         query_res = query_res[:min(max_show, len(query_res))]
 
-        if query_res==[]:
+        if  query_res == []:
             return [], []
         for i in query_res:
             res_i = load_data_objects((i+'.json'))
             res_i['idx'] = i
             res.append(res_i)
+        print('search finish')
+
+        # highlighting
         res2=[]
         for i in res:
             for key,value in i.items():
                 for j in query_list:
-                    if j in str(value):
-                        if isinstance(i[key],str):
-                            i[key]=i[key].replace(j,'<span class=keyWord>'+j+'</span>')       
+                    if j in value:
+                        i[key]=i[key].replace(j,'<span class=keyWord>'+j+'</span>')
             res2.append(i)
-        
         res_final = []
+
         for i in res2:
-            i['type']='1'
+            i['type'] = '2'
             res_final.append(i)
+
     return res_final, list(res_fuzz)
 
-if __name__ == '__main__':    
-    res, _ = result_query_data1("上海 AND 人民法院",True)
-    print(len(res))
+
+if __name__ == '__main__':
+    res_final, res_fuzz = result_query_data2("上海 AND 人民法院", True)
+    print(res_final, len(res_final), res_fuzz)
+
