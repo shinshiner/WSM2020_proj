@@ -31,7 +31,7 @@ Download the original data from the [course website](https://adapt.seiee.sjtu.ed
 
 2. Put the generated indexes and original data into folder `/data1/` and `/data2/`.
 
-We also provide the [processed data](https://github.com/pandao/editor.md "Editor.md").
+We also provide the [processed data](https://pan.baidu.com/s/14AwX-AtyIJF9krTtS5TQKA) (extraction code: izcl).
 
 ## Usage
 
