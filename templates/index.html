@@ -1,4 +1,3 @@
-
 <!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml">
 {% load static %}
@@ -25,13 +24,6 @@
             <div class="inputArea">
             	<input type="text" class="searchInput" />
                 <input type="button" class="searchButton" onclick="add_search()" />
-                <ul class="dataList">
-                	<li>如何学好设计</li>
-                    <li>界面设计</li>
-                    <li>UI设计培训要多少钱</li>
-                    <li>设计师学习</li>
-                    <li>哪里有好的网站</li>
-                </ul>
             </div>
 
             <div class="historyArea">
@@ -46,17 +38,11 @@
         </div><!-- End of main -->
     </div><!--End of bd-->
 
-    <!-- <div class="foot">
-    	<div class="wrap">
-            <div class="copyright">Copyright &copy;uimaker.com 版权所有  E-mail:admin@uimaker.com</div>
-        </div>
-    </div> -->
 </div>
 </body>
 <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/global.js' %}"></script>
 <script type="text/javascript">
-    // var suggest_url = "{% url 'suggest' %}"
     var search_url = "{% url 'search' %}"
 
 
@@ -75,32 +61,7 @@
     }
 
 
-    // 搜索建议
-    $(function(){
-        $('.searchInput').bind(' input propertychange ',function(){
-            var searchText = $(this).val();
-            var tmpHtml = ""
-            $.ajax({
-                cache: false,
-                type: 'get',
-                dataType:'json',
-                url:suggest_url+"?s="+searchText+"&s_type="+$(".searchItem.current").attr('data-type'),
-                async: true,
-                success: function(data) {
-                    for (var i=0;i<data.length;i++){
-                        tmpHtml += '<li><a href="'+search_url+'?q='+data[i]+'">'+data[i]+'</a></li>'
-                    }
-                    $(".dataList").html("")
-                    $(".dataList").append(tmpHtml);
-                    if (data.length == 0){
-                        $('.dataList').hide()
-                    }else {
-                        $('.dataList').show()
-                    }
-                }
-            });
-        } );
-    })
+    
 
     hideElement($('.dataList'), $('.searchInput'));
 

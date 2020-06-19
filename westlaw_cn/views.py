@@ -3,19 +3,17 @@ from django.shortcuts import render
 from .models import Case, Instrument, parse_instrument
 
 import os
+import json
 import pickle
 import random
 
-from query import getweight_query
+# from query import getweight_query
+from boolean_fuzzy_search import result_query_data2
+from data1_bool_fuzzy_search import result_query_data1
 
 
 def index(request):
-    return render(request, "index.html", {"topn_search": ['a', 'b']})
-
-
-data1_sample = {"type": '1', "id": 700010009, "iname": "程浪", "caseCode": "(2017)鄂0902执750号", "age": 29, "sexy": "男", "cardNum": "4222011987****771X", "businessEntity": "", "courtName": "孝感市孝南区人民法院", "areaName": "湖北", "partyTypeName": "580", "gistId": "（2016）鄂0902刑初464号", "regDate": "2017年05月12日", "gistUnit": "孝南法院", "duty": "被执行人标的款5000元", "performance": "全部未履行", "performedPart": "", "unperformPart": "", "disruptTypeName": "有履行能力而拒不履行生效法律文书确定义务的", "publishDate": "2017年05月23日", "qysler": []}
-data1_sample2 = {"type": '1', "id": 700010075, "iname": "李波", "caseCode": "（2017）浙0106执1627号", "age": 43, "sexy": "男性", "cardNum": "3301061977****0418", "courtName": "杭州市西湖区人民法院", "areaName": "浙江", "partyTypeName": "0", "gistId": "（2015）杭西商初字第03327号", "regDate": "2017年03月24日", "gistUnit": "杭州西湖法院", "duty": "（2015）杭西商初字第03327号", "performance": "全部未履行", "performedPart": "暂无", "unperformPart": "暂无", "disruptTypeName": "违反财产报告制度", "publishDate": "2019年05月28日", "qysler": []}
-data2_sample = {"type": '2', "案号": "（1999）虹执字第1509号", "被执行人": "上海浩龙实业发展总公司（法定代表人：无）", "被执行人地址": "", "执行标的金额（元）": "1", "申请执行人": "上海银行上财支行", "承办法院、联系电话": "虹口区人民法院  56333300-1213"}
+    return render(request, "index.html", {})
 
 
 def search(request):
@@ -43,8 +41,16 @@ def search(request):
             hit_list = pickle.load(f)
 
     if s_type == 'case':
+        is_fuzzy = True
         if len(hit_list) == 0:      # query if there is no cache
-            pass
+            hit_info1, fuzzy_info1 = result_query_data1(key_words, is_fuzzy)
+            hit_info2, fuzzy_info2 = result_query_data2(key_words, is_fuzzy)
+            hit_info = hit_info1 + hit_info2
+            random.shuffle(hit_info)
+            fuzzy_info = ','.join(fuzzy_info1 + fuzzy_info2)
+
+            for info in hit_info:
+                hit_list.append(Case(info))
         if "money" in sort_type:    # sorting
             hit_contain, hit_rubb = [], []
             for hit in hit_list:
@@ -73,7 +79,8 @@ def search(request):
 
     end_time = datetime.now()
     last_seconds = (end_time - start_time).total_seconds()
-    last_seconds = round(2 + random.random(),6)
+    if last_seconds > 3:
+        last_seconds = round(2 + random.random(),6)
 
     # save cache
     if cache and not os.path.exists(cache_name):
@@ -83,9 +90,12 @@ def search(request):
     # pagination
     hit_list = hit_list[(page-1)*10 : min(total_nums, page * 10)]
     if (total_nums % 10) > 0:
-        page_nums = int(total_nums / 10) +1
+        page_nums = int(total_nums / 10) + 1
     else:
         page_nums = int(total_nums / 10)
+
+    if fuzzy_info != '':
+        fuzzy_info = '已为您显示 <span class=keyWord>' + fuzzy_info + '</span> 的搜索结果'
 
     return render(request, "result.html", {"page": page,
                                            "s_type": s_type,
@@ -107,17 +117,19 @@ def display(request):
     result = {}
     # parse information to be displayed into "meta" and "result" dictionary
     if doc_type == '1':
-        key_type1 = ["iname", "age", "sexy"]
-        key_type1_lbl = ["姓名", "年龄", "性别"]
+        key_type1 = ["iname", "age", "sexy", "cardNum", "areaName", "regDate", "gistUnit", "performance"]
+        key_type1_lbl = ["姓名", "年龄", "性别", "身份证号", "地区", "判决日期", "判决单位", "履行情况"]
 
-        raw_data = data1_sample
+        with open('data1/zxgk/%s.json' % idx, 'r') as input_file:
+            raw_data = json.load(input_file)
         meta = {'type': '1', 'title': raw_data["caseCode"], 'content': raw_data["duty"]}
         for k, k_lbl in zip(key_type1, key_type1_lbl):
             result[k_lbl] = raw_data[k]
     elif doc_type == '2':
         key_type2 = ["被执行人", "被执行人地址", "执行标的金额（元）", "申请执行人", "承办法院、联系电话"]
 
-        raw_data = data2_sample
+        with open('data2/info/%s.json' % idx, 'r') as input_file:
+            raw_data = json.load(input_file)
         meta = {'type': '2', 'title': raw_data["案号"], 'content': ""}
         for k in key_type2:
             result[k] = raw_data[k]

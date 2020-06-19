@@ -11,6 +11,7 @@ Code for WSM 2020 Project: Chinese WestLaw system
 * Django 3.0.6 (For web interface)
 * pkuseg
 * nltk
+* fuzzywuzzy
 
 ## Data Preparation
 

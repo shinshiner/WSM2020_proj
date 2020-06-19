@@ -16,6 +16,7 @@ class Case():
         self.type = str(info["type"])
         self.sort_info = {'date': 0, 'money': 0}      # attributes to be sorted
         self.snippet = ""
+        self.idx = info['idx']
 
         if info["type"] == '1':       # parse data1
             self.candidate_keys = ["iname", "age", "sexy", "duty", "performance", "publishDate"]

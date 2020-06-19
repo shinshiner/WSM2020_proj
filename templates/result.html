@@ -112,7 +112,7 @@
                     <div class="resultItem">
                             {% if hit.type == '1' or hit.type == '2'%}
                                 <div class="itemHead">
-                                    <a onclick="display(1, {{ hit.type}})" target="_blank"  class="title">案号: {% autoescape off %}{{ hit.title }}{% endautoescape %}</a>
+                                    <a onclick="display({{hit.idx}}, {{ hit.type}})" target="_blank"  class="title">案号: {% autoescape off %}{{ hit.title }}{% endautoescape %}</a>
                                     <span class="divsion">-</span>
                                     <!-- <span class="fileType">
                                         <span class="label">来源：</span>
@@ -120,7 +120,7 @@
                                     </span> -->
                                     <span class="dependValue">
                                         <span class="label">法庭</span>
-                                        <span class="value">{{ hit.sub_title }}</span>
+                                        <span class="value">{% autoescape off %} {{ hit.sub_title }} {% endautoescape %}</span>
                                     </span>
                                 </div>
                                 <div class="itemBody">
