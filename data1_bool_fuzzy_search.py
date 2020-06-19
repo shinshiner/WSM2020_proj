@@ -34,15 +34,8 @@ class IndexProvider:
         :param fields:
         :return:
         """
-#         list_json=rename_data(self.scraper_output_file_name,'.txt')
-#         list_json=rename_data(self.scraper_output_file_name,'.json')
+
         list_json = sorted(os.listdir('./zxgk'))[:100000]
-
-#         documents = []
-
-#         for data in list_json:
-#             documents.append(' '.join([value if key in fields else ' ' for key, value in load_data_objects(data).items()]))
-
         inverted_index = {}
 
         for f_name in list_json:
@@ -51,8 +44,6 @@ class IndexProvider:
             document = ' '.join([str(value) if key in fields else ' ' for key, value in tmp.items()])
                 
                 
-#       for document_id, document in enumerate(documents):
-#           document_id = str(document_id)  # Using strings as keys in dicts
             tokens = seg.cut(document)
             for key,value in tmp.items():
                 if key in fields:
@@ -107,15 +98,7 @@ class IndexProvider:
         :param fields:
         :return:
         """
-#         list_json=rename_data(self.scraper_output_file_name,'.txt')
-#         list_json=rename_data(self.scraper_output_file_name,'.json')
         list_json = sorted(os.listdir('./zxgk'))[:100000]
-
-#         documents = []
-
-#         for data in list_json:
-#             documents.append(' '.join([value if key in fields else ' ' for key, value in load_data_objects(data).items()]))
-
         inverted_index = {}
 
         for f_name in list_json:
@@ -132,14 +115,13 @@ class IndexProvider:
                     tmp_list.append(' ')
                 document=' '.join(tmp_list)
                 
-#       for document_id, document in enumerate(documents):
-#           document_id = str(document_id)  # Using strings as keys in dicts
             tokens = seg.cut(document)
             if tmp['qysler']!=[]:
                 tokens.append(tmp['qysler'][0]['cardNum'])
                 tokens.append(tmp['qysler'][0]['corporationtypename'])             
                 tokens.append(tmp['qysler'][0]['iname'])
             tokens=set(tokens)
+            
             for token in tokens:
                 if token in inverted_index.keys():
                     inverted_index[token].append(document_id)
@@ -241,6 +223,7 @@ def boolean_NOT(right_operand, indexed_docIDs):
             r_index += 1
     result=[str(i) for i in result]
     return result
+
 def boolean_OR(left_operand, right_operand):
     result = []     # union of left and right operand
     l_index = 0     # current index in left_operand
@@ -351,7 +334,6 @@ def process_query(query, index):
         # if operand, add postings list for term to results stack
         if (token != 'AND' and token != 'OR' and token != 'NOT'):
             # default empty list if not in dictionary
-            #print(token in index.get_inverted_index().keys())
             if (token in index.get_inverted_index().keys()): 
                 result = load_posting_list(token,index)
         
@@ -359,21 +341,18 @@ def process_query(query, index):
         elif (token == 'AND'):
             right_operand = results_stack.pop()
             left_operand = results_stack.pop()
-            # print(left_operand, 'AND', left_operand) # check
             result = boolean_AND(left_operand, right_operand)   # evaluate AND
 
         # else if OR operator
         elif (token == 'OR'):
             right_operand = results_stack.pop()
             left_operand = results_stack.pop()
-            # print(left_operand, 'OR', left_operand) # check
             result = boolean_OR(left_operand, right_operand)    # evaluate OR
 
         # else if NOT operator
         elif (token == 'NOT'):
             indexed_docIDs=[str(i) for i in range(index.get_meta_information()['num_documents'])]
             right_operand = results_stack.pop()
-            # print('NOT', right_operand) # check
             result = boolean_NOT(right_operand, indexed_docIDs) # evaluate NOT
 
         # push evaluated result back to stack
@@ -412,8 +391,7 @@ def fuzzy_search(query,index):
 
     insert_point = bisect.bisect_left(sorted_index_key, query)
     keys = sorted_index_key[max(0, insert_point-100): min(insert_point+100, up_bound)]
-    # for key in index.get_inverted_index().keys():
-    #     keys.append(key)
+    
     list_test = process.extract(query, keys)
     for ob in list_test:
         if(ob[1]>90):
@@ -457,7 +435,6 @@ def boolean_search(postfix_queue):
         # if operand, add postings list for term to results stack
         if (token != 'AND' and token != 'OR' and token != 'NOT'):
             # default empty list if not in dictionary
-            #print(token in index.get_inverted_index().keys())
             if (token in index.get_inverted_index().keys()): 
                 result = load_posting_list(token,index)
 
@@ -466,21 +443,18 @@ def boolean_search(postfix_queue):
         elif (token == 'AND'):
             right_operand = results_stack.pop()
             left_operand = results_stack.pop()
-            # print(left_operand, 'AND', left_operand) # check
             result = boolean_AND(left_operand, right_operand)   # evaluate AND
 
         # else if OR operator
         elif (token == 'OR'):
             right_operand = results_stack.pop()
             left_operand = results_stack.pop()
-            # print(left_operand, 'OR', left_operand) # check
             result = boolean_OR(left_operand, right_operand)    # evaluate OR
 
         # else if NOT operator
         elif (token == 'NOT'):
             indexed_docIDs=[str(i) for i in range(index.get_meta_information()['num_documents'])]
             right_operand = results_stack.pop()
-            # print('NOT', right_operand) # check
             result = boolean_NOT(right_operand, indexed_docIDs) # evaluate NOT
 
         # push evaluated result back to stack
@@ -505,7 +479,6 @@ def fuzzy_query(query, index, number):
     postfix_queue = collections.deque(shunting_yard(query))
     
     #dict_fuzzy stores the fuzzy candidates for each token
-    
     for item in postfix_queue :
         if item != 'AND' and item != 'OR' and item != 'NOT':
             list_query.append(item)
@@ -514,9 +487,6 @@ def fuzzy_query(query, index, number):
         fuz_item= fuzzy_search(item,index)
         dict_fuzzy[item] = fuz_item
         
-    #print(dict_fuzzy)
-   
-    
     #Here dict_score is a dictionary where key is the fuzzy match token, value is the score
     dict_score = {}
 
@@ -531,16 +501,13 @@ def fuzzy_query(query, index, number):
         if value < 100:
             count_fuzzy = count_fuzzy+1
             
-    
-    #print(count_fuzzy)
-    
+ 
     
     res = boolean_search(postfix_queue)
     if res!=[]:
         for item_res in res:
             results.append(item_res)
 
-    
     
     dict_used = {}
     
@@ -549,13 +516,11 @@ def fuzzy_query(query, index, number):
         query_loop = query.copy()
         d2 = {}
         for key,value in dict_score.items():
-            #d2={k:v for k,v in dict_score.items() if (k,v not in dict_used.items() and v<100)}
             for k,v in dict_score.items():
                 if (k not in dict_used.keys()) and (v<100):
                     d2[k]=v
         if(len(d2)>0):
             max_value = max(d2.values())
-        #print(max_value)
         count_max = 0
         for key,value in d2.items():
             if(value == max_value):
@@ -563,7 +528,7 @@ def fuzzy_query(query, index, number):
                 if(count_max ==1):
                     replace_cand = key
                     dict_used[key] = value
-        #print(dict_used)
+                    
         replace_query = process.extractOne(replace_cand, query_loop)[0]
         pos = 0
         for item in query_loop:
@@ -571,10 +536,8 @@ def fuzzy_query(query, index, number):
                 query_loop[pos] = replace_cand
             pos = pos+1
         
-        
         postfix_queue = collections.deque(shunting_yard(query_loop))
         
-        #print(query_loop)
         res = boolean_search(postfix_queue)
         if res!=[]:
             for it_query in query_loop:
@@ -583,11 +546,7 @@ def fuzzy_query(query, index, number):
                 results.append(item_res)
         
      
-    results_r = list(set(results))
-    # results_r.sort(key=results.index)  
-    
-    
-    
+    results_r = list(set(results)) 
     result_return = []
     result_return.append(results_r)
     result_return.append(fuzzy_info)
@@ -607,8 +566,6 @@ def result_query_data1(query,if_fuzzy):
     query_list = query_list.replace('(', ' ')
     query_list = query_list.replace(')', ' ')
     query_list = query_list.split()
-    #print(query_list)
-
     
     if if_fuzzy == True :
          print('use fuzzy search')
@@ -623,19 +580,17 @@ def result_query_data1(query,if_fuzzy):
              res_i = load_data_objects((i+'.json'))
              res_i['idx'] = i
              res.append(res_i)
+             
          res2=[]
          for i in res:
              for key,value in i.items():
-                 # print(value)
                  for j in query_list:
                      if j in str(value):
                          if isinstance(i[key],str):
                              i[key]=i[key].replace(j,'<span class=keyWord>'+j+'</span>')
              res2.append(i)
-         
-             
+    
          res3=[]
-         
          for i in res2:
              for key,value in i.items():
                  for j in fuzzy_list:
@@ -667,9 +622,9 @@ def result_query_data1(query,if_fuzzy):
                 for j in query_list:
                     if j in str(value):
                         if isinstance(i[key],str):
-                            i[key]=i[key].replace(j,'<span class=keyWord>'+j+'</span>')
-                        
+                            i[key]=i[key].replace(j,'<span class=keyWord>'+j+'</span>')       
             res2.append(i)
+        
         res_final = []
         for i in res2:
             i['type']='1'
@@ -677,8 +632,7 @@ def result_query_data1(query,if_fuzzy):
     return res_final, list(res_fuzz)
 
 if __name__ == '__main__':
-    # fuzzy_query("宁德中级人民法院",5) 
-
-    # #%%
+    
+    
     res, _ = result_query_data1("上海 AND 人民法院",True)
     print(len(res))
